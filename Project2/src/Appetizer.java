@@ -1,7 +1,7 @@
 /**
  * Created by David on 10/1/2016.
  */
-class Appetizer extends CustomerOrder {
+final class Appetizer extends CustomerOrder {
     enum ApptType {
         SOUP,
         SALAD

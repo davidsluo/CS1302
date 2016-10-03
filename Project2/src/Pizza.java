@@ -1,7 +1,7 @@
 /**
  * Created by David on 9/27/2016.
  */
-class Pizza extends CustomerOrder {
+final class Pizza extends CustomerOrder {
 
     private PizzaType type;
     private SizeType size;
