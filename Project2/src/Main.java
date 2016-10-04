@@ -123,10 +123,11 @@ public class Main {
         System.out.println("Session Summary");
         for (int i = 0; i < orders.size(); i++) {
             System.out.printf(ORDER_TITLE, i + 1);
-            System.out.printf(ORDER_HEADER, "Item", "Quantity", "Price");
-            for (Item item : orders.get(i).getItems()) {
-                System.out.printf(ORDER_ITEM, item.getName(), item.getQuantity(), item.getPrice());
-            }
+//            System.out.printf(ORDER_HEADER, "Item", "Quantity", "Price");
+//            for (Item item : orders.get(i).getItems()) {
+//                System.out.printf(ORDER_ITEM, item.getName(), item.getQuantity(), item.getPrice());
+//            }
+            orders.get(i).printInvoice();
         }
     }
 
