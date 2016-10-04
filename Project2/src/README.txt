@@ -6,6 +6,8 @@ Build with the makefile:
 RUN INSTRUCTIONS
 ----------------
 Run with Java
-	bash$ javac Main
+	user@nike$ javac Main
 Or use the shell script
-	bash$ ./run.sh
+	user@nike$ ./run.sh
+May need to give execute permissions to run script first
+	user@nike$ chmod +x run.sh
