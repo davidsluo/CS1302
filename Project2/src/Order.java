@@ -32,7 +32,7 @@ public class Order {
 
     public double calcTotal() {
         double total = 0;
-        for (Item item: items) {
+        for (Item item : items) {
             total += item.calcTotal();
         }
 
@@ -70,7 +70,9 @@ public class Order {
             item.printInvoiceLine();
         }
         Item.printInvoiceSeparator();
-        System.out.printf("%1$-32s $%2$7.2f\n", "Total", calcTotal());
+        System.out.printf("%1$-32s $%2$7.2f\n", "Subtotal", calcTotal());
+        System.out.printf("%1$-32s $%2$7.2f\n", "Tax", calcTotal() * TAX);
+        System.out.printf("%1$-32s $%2$7.2f\n", "Total", calcTotal() * (1 + TAX));
         System.out.println();
     }
 }
