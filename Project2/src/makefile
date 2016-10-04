@@ -7,13 +7,12 @@ JC = javac
 	$(JC) $(JFLAGS) $*.java
 
 CLASSES = \
-	PizzaTest.java \
 	Pizza.java \
 	Appetizer.java \
 	Drink.java \
-	CustomerOrder.java \
 	Order.java \
-	PizzaStore.java
+	Item.java \
+	Main.java
 
 default: classes
 
