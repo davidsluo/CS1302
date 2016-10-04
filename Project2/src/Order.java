@@ -1,64 +1,59 @@
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by David on 9/26/2016.
+ * Represents an order. Can have multiple Drinks, Pizzas, Appetizers, etc.
  */
-abstract class Order implements PizzaStore {
+public class Order {
 
-    static Scanner scanner = new Scanner(System.in);
+    public static double TAX = 0.07;
 
-    @Override
-    public void displayMenu() {
-        final String ALL_ITEMS_PATTERN = "%-25s | $%-4.2f\n";
+    private List<Item> items = new ArrayList<>();
 
-        String output = "All Items\n------------------\n" +
-                String.format("%-25s | %-5s\n", "Item", "Price") +
-                String.format(ALL_ITEMS_PATTERN, "Small Vegetarian Pizza", S_VEGETARIAN_PRICE) +
-                String.format(ALL_ITEMS_PATTERN, "Medium Vegetarian Pizza", M_VEGETARIAN_PRICE) +
-                String.format(ALL_ITEMS_PATTERN, "Large Vegetarian Pizza", L_VEGETARIAN_PRICE) +
-                String.format(ALL_ITEMS_PATTERN, "Small Cheese Pizza", S_CHEESE_PRICE) +
-                String.format(ALL_ITEMS_PATTERN, "Medium Cheese Pizza", M_CHEESE_PRICE) +
-                String.format(ALL_ITEMS_PATTERN, "Large Cheese Pizza", L_CHEESE_PRICE) +
-                String.format(ALL_ITEMS_PATTERN, "Small Pepperoni Pizza", S_PEPPERONI_PRICE) +
-                String.format(ALL_ITEMS_PATTERN, "Medium Pepperoni Pizza", M_PEPPERONI_PRICE) +
-                String.format(ALL_ITEMS_PATTERN, "Large Pepperoni Pizza", L_PEPPERONI_PRICE) +
-                String.format(ALL_ITEMS_PATTERN, "Drink", DRINK_PRICE) +
-                String.format(ALL_ITEMS_PATTERN, "Salad", SALAD_PRICE) +
-                String.format(ALL_ITEMS_PATTERN, "Soup", SOUP_PRICE);
+    public void consolidateDuplicates() {
 
-        System.out.println(output);
-    }
+        List<Item> uniqueItems = new ArrayList<>();
 
-    static String askForValidStringInput(String inputQuery, String[] validInput) {
-        String input;
-        while (true) {
-            System.out.print(inputQuery);
+        for (Item item : items) {
 
-            input = scanner.next().toLowerCase();
-
-            for (String valid : validInput) {
-                if (valid.toLowerCase().equals(input))
-                    return input;
+            if (!uniqueItems.contains(item)) {
+                uniqueItems.add(item);
+                break;
             }
 
-            System.out.println("Invalid input.");
-        }
-    }
-
-    static int askForValidIntegerInput(String inputQuery) {
-        int input;
-
-        while (true) {
-            System.out.print(inputQuery);
-
-            try {
-                input = scanner.nextInt();
-                return input;
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input.");
+            for (Item uItem : uniqueItems) {
+                if (item.equals(uItem)) {
+                    uItem.addQuantity(item.getQuantity());
+                }
             }
         }
+
+        this.items = uniqueItems;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    static void printMenu() {
+        System.out.println(Pizza.getMenu());
+        System.out.println(Appetizer.getMenu());
+        System.out.println(Drink.getMenu());
+    }
+
+    static String getOptionsMenu() {
+        return "Enter (1-3) to select an option or any other key to finish ordering.\n" +
+                "1) Order a pizza.\n" +
+                "2) Order an appetizer.\n" +
+                "3) Order a drink.";
+    }
+
+    public void printInvoice() {
+        // TODO: 10/4/2016 This
+        System.out.println("Print invoice here.");
     }
 }

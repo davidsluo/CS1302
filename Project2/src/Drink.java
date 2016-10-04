@@ -1,9 +1,92 @@
 /**
- * Created by David on 10/1/2016.
+ * Represents a Drink.
  */
-final class Drink extends CustomerOrder {
+public class Drink implements Item {
+
+    public static final double DRINK_PRICE = 2.0;
+
+    private int quantity;
+
+    /**
+     * Constructor
+     *
+     * @param quantity Number of drinks in this order.
+     */
+    public Drink(int quantity) {
+        this.quantity = quantity;
+    }
+
+    /**
+     * @return Quantity of drink(s) ordered.
+     */
     @Override
-    public void displayMenu() {
-        System.out.println("Add drink? (Y/N)");
+    public int getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * @param quantity Number of drink(s) to order.
+     */
+    @Override
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
+    public void addQuantity(int quantity) {
+        this.quantity += quantity;
+    }
+
+    /**
+     * @return Price of quantity of drink(s) ordered.
+     */
+    @Override
+    public double calcPrice() {
+        return DRINK_PRICE * quantity;
+    }
+
+    /**
+     * Prints receipt line for this drink.
+     */
+    @Override
+    public void printInvoiceLine() {
+        Item.printInvoiceLine("Drink", calcPrice());
+    }
+
+    @Override
+    public String getName() {
+        return "Drink";
+    }
+
+    @Override
+    public double getPrice() {
+        return DRINK_PRICE;
+    }
+
+    /**
+     * Prints the drink selection menu.
+     */
+    public static String getSelectionMenu() {
+        return "Select a drink (1-2).\n" +
+                "1) Add drink" +
+                "2) No drink";
+    }
+
+    /**
+     * Prints the list of available drink(s) and their prices.
+     */
+    public static String getMenu() {
+        return "Drinks\n" +
+                Item.getMenu("Drink", DRINK_PRICE);
+    }
+
+    /**
+     * Returns true if it has the same (non-existent) properties.
+     *
+     * @param obj the object to check for equality
+     * @return if the two objects are both Drinks
+     */
+    public boolean equals(Object obj) {
+        return obj instanceof Drink;
     }
 }
