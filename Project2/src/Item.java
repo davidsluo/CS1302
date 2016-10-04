@@ -4,7 +4,9 @@
 interface Item {
 
     String MENU_PATTERN = "%1s%2s$%3$.2f\n";
-    String INVOICE_PATTERN = "%1$-20s $%2$4.2f\n";
+    String INVOICE_PATTERN = "%1$-22s %2$9d $%3$7.2f\n";
+    String INVOICE_HEADER_PATTERN = "%1$-28s %2$3s %3$8s\n";
+    String INVOICE_SEPARATOR = "-----------------------------------------";
 
     /**
      * @return Quantity of Item ordered.
@@ -24,7 +26,7 @@ interface Item {
     /**
      * @return Price of Quantity count of Items
      */
-    double calcPrice();
+    double calcTotal();
 
     /**
      * Helper method to print available choices.
@@ -49,9 +51,18 @@ interface Item {
      * @param item Name of item.
      * @param totalPrice Total price of items.
      */
-    static void printInvoiceLine(String item, double totalPrice) {
-        System.out.printf(INVOICE_PATTERN, item, totalPrice);
+    static void printInvoiceLine(String item, int quantity, double totalPrice) {
+        System.out.printf(INVOICE_PATTERN, item, quantity, totalPrice);
     }
+
+    static void printInvoiceHeader() {
+        System.out.printf(INVOICE_HEADER_PATTERN, "Item", "Qty", "Price");
+    }
+
+    static void printInvoiceSeparator() {
+        System.out.println(INVOICE_SEPARATOR);
+    }
+
 
     static String getQuantityMenu() {
         return "Enter Quantity";

@@ -60,7 +60,7 @@ public class Appetizer implements Item {
      * @return Price of quantity of appetizer(s) ordered.
      */
     @Override
-    public double calcPrice() {
+    public double calcTotal() {
         if (this.appetizerType.equals(AppetizerType.SOUP)) {
             return SOUP_PRICE * quantity;
         } else if (this.appetizerType.equals(AppetizerType.SALAD)) {
@@ -76,7 +76,7 @@ public class Appetizer implements Item {
      */
     @Override
     public void printInvoiceLine() {
-        Item.printInvoiceLine(this.appetizerType.toString(), calcPrice());
+        Item.printInvoiceLine(this.appetizerType.toString(), quantity, getPrice());
     }
 
     @Override

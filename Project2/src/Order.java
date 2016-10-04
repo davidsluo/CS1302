@@ -18,17 +18,25 @@ public class Order {
 
             if (!uniqueItems.contains(item)) {
                 uniqueItems.add(item);
-                break;
-            }
-
-            for (Item uItem : uniqueItems) {
-                if (item.equals(uItem)) {
-                    uItem.addQuantity(item.getQuantity());
+            } else {
+                for (Item uItem : uniqueItems) {
+                    if (item.equals(uItem)) {
+                        uItem.addQuantity(item.getQuantity());
+                    }
                 }
             }
         }
 
         this.items = uniqueItems;
+    }
+
+    public double calcTotal() {
+        double total = 0;
+        for (Item item: items) {
+            total += item.calcTotal();
+        }
+
+        return total;
     }
 
     public List<Item> getItems() {
@@ -54,6 +62,15 @@ public class Order {
 
     public void printInvoice() {
         // TODO: 10/4/2016 This
-        System.out.println("Print invoice here.");
+        consolidateDuplicates();
+        System.out.println("\nInvoice");
+        Item.printInvoiceSeparator();
+        Item.printInvoiceHeader();
+        for (Item item : items) {
+            item.printInvoiceLine();
+        }
+        Item.printInvoiceSeparator();
+        System.out.printf("%1$-32s $%2$7.2f\n", "Total", calcTotal());
+        System.out.println();
     }
 }

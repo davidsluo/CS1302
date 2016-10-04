@@ -41,7 +41,7 @@ public class Drink implements Item {
      * @return Price of quantity of drink(s) ordered.
      */
     @Override
-    public double calcPrice() {
+    public double calcTotal() {
         return DRINK_PRICE * quantity;
     }
 
@@ -50,7 +50,7 @@ public class Drink implements Item {
      */
     @Override
     public void printInvoiceLine() {
-        Item.printInvoiceLine("Drink", calcPrice());
+        Item.printInvoiceLine("Drink", quantity, getPrice());
     }
 
     @Override

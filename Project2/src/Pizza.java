@@ -95,7 +95,7 @@ public class Pizza implements Item {
     /**
      * @return Price of quantity of pizza(s) ordered.
      */
-    public double calcPrice() {
+    public double calcTotal() {
         double total = 0;
 
         if (topping == null || size == null)
@@ -129,7 +129,7 @@ public class Pizza implements Item {
      */
     @Override
     public void printInvoiceLine() {
-        Item.printInvoiceLine(this.topping.toString() + " pizza", calcPrice());
+        Item.printInvoiceLine(getName(), quantity, getPrice());
     }
 
     @Override

@@ -14,102 +14,104 @@ public class Main {
 
     public static void main(String[] args) {
 
-        boolean cont = true;
+        boolean cont;
+//        try {
+//        } catch (Exception | Error e) {
+//            if (getYesNo("Something went wrong. Exit? (Y/N)"))
+//                cont = false;
+//        }
 
-        while (cont) {
-            try {
-                // TODO: 10/4/2016 Loop this for new orders
-                Order order = new Order();
-                while (cont) {
-                    Order.printMenu();
-                    System.out.println(Order.getOptionsMenu());
-                    switch (scanner.next()) {
-                        case "1":
-                            do {
-                                Pizza.Topping topping = null;
-                                Pizza.Size size = null;
-                                int pQuantity;
-                                // Map to array instead?
-                                // TODO: 10/3/2016 Make this prettier
-                                switch (getStrInput(Pizza.getSizeSelectionMenu(), "1", "2", "3")) {
-                                    case "1":
-                                        size = Pizza.Size.SMALL;
-                                        break;
-                                    case "2":
-                                        size = Pizza.Size.MEDIUM;
-                                        break;
-                                    case "3":
-                                        size = Pizza.Size.LARGE;
-                                        break;
-                                }
-                                switch (getStrInput(Pizza.getToppingSelectionMenu(), "1", "2", "3")) {
-                                    case "1":
-                                        topping = Pizza.Topping.VEGETARIAN;
-                                        break;
-                                    case "2":
-                                        topping = Pizza.Topping.CHEESE;
-                                        break;
-                                    case "3":
-                                        topping = Pizza.Topping.PEPPERONI;
-                                        break;
-                                }
+        do {
+            // TODO: 10/4/2016 Loop this for new orders
+            cont = true;
+            Order order = new Order();
+            while (cont) {
+                Order.printMenu();
+                System.out.println(Order.getOptionsMenu());
+                switch (scanner.next()) {
+                    case "1":
+                        do {
+                            Pizza.Topping topping = null;
+                            Pizza.Size size = null;
+                            int pQuantity;
+                            // Map to array instead?
+                            // TODO: 10/3/2016 Make this prettier
+                            switch (getStrInput(Pizza.getSizeSelectionMenu(), "1", "2", "3")) {
+                                case "1":
+                                    size = Pizza.Size.SMALL;
+                                    break;
+                                case "2":
+                                    size = Pizza.Size.MEDIUM;
+                                    break;
+                                case "3":
+                                    size = Pizza.Size.LARGE;
+                                    break;
+                            }
+                            switch (getStrInput(Pizza.getToppingSelectionMenu(), "1", "2", "3")) {
+                                case "1":
+                                    topping = Pizza.Topping.VEGETARIAN;
+                                    break;
+                                case "2":
+                                    topping = Pizza.Topping.CHEESE;
+                                    break;
+                                case "3":
+                                    topping = Pizza.Topping.PEPPERONI;
+                                    break;
+                            }
 
-                                pQuantity = getIntInput(Item.getQuantityMenu());
+                            pQuantity = getIntInput(Item.getQuantityMenu());
 
-                                assert topping != null;
-                                assert size != null;
-                                assert pQuantity != 0;
+                            assert topping != null;
+                            assert size != null;
+                            assert pQuantity != 0;
 
-                                order.addItem(new Pizza(topping, size, pQuantity));
-                                order.printInvoice();
-                            } while (getYesNo("Order another pizza? (Y/N)"));
-                            break;
-                        case "2":
-                            do {
-                                Appetizer.AppetizerType type = null;
-                                int aQuantity;
+                            order.addItem(new Pizza(topping, size, pQuantity));
+                            order.printInvoice();
+                        } while (getYesNo("Order another pizza? (Y/N)"));
+                        break;
+                    case "2":
+                        do {
+                            Appetizer.AppetizerType type = null;
+                            int aQuantity;
 
-                                switch (getStrInput(Appetizer.getSelectionMenu(), "1", "2")) {
-                                    case "1":
-                                        type = Appetizer.AppetizerType.SOUP;
-                                        break;
-                                    case "2":
-                                        type = Appetizer.AppetizerType.SALAD;
-                                        break;
-                                }
+                            switch (getStrInput(Appetizer.getSelectionMenu(), "1", "2")) {
+                                case "1":
+                                    type = Appetizer.AppetizerType.SOUP;
+                                    break;
+                                case "2":
+                                    type = Appetizer.AppetizerType.SALAD;
+                                    break;
+                            }
 
-                                aQuantity = getIntInput(Item.getQuantityMenu());
+                            aQuantity = getIntInput(Item.getQuantityMenu());
 
-                                assert type != null;
-                                assert aQuantity != 0;
-                                order.addItem(new Appetizer(type, aQuantity));
-                                order.printInvoice();
-                            } while (getYesNo("Order another appetizer? (Y/N)"));
-                            break;
-                        case "3":
-                            do {
-                                int dQuantity = getIntInput(Item.getQuantityMenu());
+                            assert type != null;
+                            assert aQuantity != 0;
+                            order.addItem(new Appetizer(type, aQuantity));
+                            order.printInvoice();
+                        } while (getYesNo("Order another appetizer? (Y/N)"));
+                        break;
+                    case "3":
+                        do {
+                            int dQuantity = getIntInput(Item.getQuantityMenu());
 
-                                assert dQuantity != 0;
-                                order.addItem(new Drink(dQuantity));
-                                order.printInvoice();
-                            } while (getYesNo("Order another drink? (Y/N)"));
-                            break;
-                        default:
-                            cont = false;
-                            break;
-                    }
+                            assert dQuantity != 0;
+                            order.addItem(new Drink(dQuantity));
+                            order.printInvoice();
+                        } while (getYesNo("Order another drink? (Y/N)"));
+                        break;
+                    default:
+                        cont = false;
+                        break;
                 }
-                order.printInvoice();
-                orders.add(order);
-                break;
-            } catch (Exception | Error e) {
-                if (getYesNo("Something went wrong. Exit? (Y/N)"))
-                    cont = false;
             }
-        }
+            order.printInvoice();
+            orders.add(order);
+
+        } while (getStrInput("Order finished. Enter N for new customer or E to exit.", "n", "e").equals("n"));
 
         printSummary();
+
     }
 
     private static void printSummary() {
@@ -157,12 +159,14 @@ public class Main {
             try {
                 // For some reason nextInt gave a weird infinite loop type situation.
                 input = Integer.valueOf(scanner.next());
-                if (input <= 0)
+                if (input <= 0 || input > 100)
                     // Would make own exception class if I could be bothered to do so.
-                    throw new InputMismatchException("Input cannot be less than 0.");
-                return input;
+                    throw new NumberFormatException();
+                else
+                    return input;
             } catch (InputMismatchException | NumberFormatException e) {
-                System.out.println("Invalid input.");
+//                System.out.println("Invalid input.");
+                System.out.println("Input must be an integer between 1 and 100 (inclusive).");
             }
         }
     }
