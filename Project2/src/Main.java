@@ -121,10 +121,10 @@ public class Main {
     private static void printSummary() {
 
         final String ORDER_TITLE  = "Order %d\n";
-        final String ORDER_HEADER = "%1$-25s%2$-10s$%3$4s\n";
-        final String ORDER_ITEM   = "%1$-25s%2$-10s$%3$4.2f\n";
+//        final String ORDER_HEADER = "%1$-25s%2$-10s$%3$4s\n";
+//        final String ORDER_ITEM   = "%1$-25s%2$-10s$%3$4.2f\n";
 
-        System.out.println("Session Summary");
+        System.out.println("Invoices: ");
         for (int i = 0; i < orders.size(); i++) {
             System.out.printf(ORDER_TITLE, i + 1);
 //            System.out.printf(ORDER_HEADER, "Item", "Quantity", "Price");
@@ -133,6 +133,11 @@ public class Main {
 //            }
             orders.get(i).printInvoice();
         }
+        System.out.println("Session Summary");
+        System.out.println("Total number of orders:\t" + orders.size());
+        System.out.println("Pizzas sold:           \t" + getTotalOrderCount(Pizza.class));
+        System.out.println("Appetizers sold:       \t" + getTotalOrderCount(Appetizer.class));
+        System.out.println("Drinks sold:           \t" + getTotalOrderCount(Drink.class));
     }
 
     private static boolean getYesNo(String query) {
@@ -174,6 +179,15 @@ public class Main {
                 System.out.println("Input must be an integer between 1 and 100 (inclusive).");
             }
         }
+    }
+
+    private static int getTotalOrderCount(Class type) {
+        int totalCount = 0;
+        for (Order order : orders) {
+            totalCount += order.getCount(type);
+        }
+
+        return totalCount;
     }
 
 }

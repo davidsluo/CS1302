@@ -75,4 +75,34 @@ public class Order {
         System.out.printf("%1$-32s $%2$7.2f\n", "Total", calcTotal() * (1 + TAX));
         System.out.println();
     }
+
+//    public int getNumPizzas() {
+////        int count = 0;
+////        for (Item item : items) {
+////            if (item instanceof Pizza)
+////                count ++;
+////        }
+////        return count;
+//        return getCount(Pizza.class);
+//    }
+//
+//    public int getNumAppetizer() {
+//        return getCount(Appetizer.class);
+//    }
+//
+//    public int getNumDrink() {
+//        return getCount(Drink.class);
+//    }
+
+    public int getCount(Class type) {
+        int count = 0;
+        for (Item item : items) {
+            if (type.isInstance(item)) {
+                count ++;
+            }
+        }
+        return count;
+    }
+
+
 }
