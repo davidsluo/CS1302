@@ -1,28 +1,41 @@
 /**
- * Represents a Pizza.
+ * @author David Luo
+ *         Represents a Pizza.
  */
-public class Pizza implements Item {
+public final class Pizza implements Item {
 
-    public static final double S_VEGETARIAN_PRICE = 6.5;
-    public static final double M_VEGETARIAN_PRICE = 10.5;
-    public static final double L_VEGETARIAN_PRICE = 13.5;
+    private static final double S_VEGETARIAN_PRICE = 6.5;
+    private static final double M_VEGETARIAN_PRICE = 10.5;
+    private static final double L_VEGETARIAN_PRICE = 13.5;
 
-    public static final double S_CHEESE_PRICE = 5.5;
-    public static final double M_CHEESE_PRICE = 8.0;
-    public static final double L_CHEESE_PRICE = 10.0;
+    private static final double S_CHEESE_PRICE = 5.5;
+    private static final double M_CHEESE_PRICE = 8.0;
+    private static final double L_CHEESE_PRICE = 10.0;
 
-    public static final double S_PEPPERONI_PRICE = 6.0;
-    public static final double M_PEPPERONI_PRICE = 8.5;
-    public static final double L_PEPPERONI_PRICE = 12.0;
+    private static final double S_PEPPERONI_PRICE = 6.0;
+    private static final double M_PEPPERONI_PRICE = 8.5;
+    private static final double L_PEPPERONI_PRICE = 12.0;
 
+    public static final String TOPPING_SELECTION_PROMPT =
+            "Select a topping (1-3).\n" +
+                    "1) Vegetarian\n" +
+                    "2) Cheese\n" +
+                    "3) Pepperoni";
 
-    public enum Topping {
+    public static final String SIZE_SELECTION_PROMPT =
+            "Select a size (1-3).\n" +
+                    "1) Small\n" +
+                    "2) Medium\n" +
+                    "3) Large";
+
+    enum Topping {
         VEGETARIAN("Vegetarian"),
         CHEESE("Cheese"),
         PEPPERONI("Pepperoni");
 
         private String formattedName;
 
+        // Enums are essentially special inner classes and can have their own elements
         Topping(String formattedName) {
             this.formattedName = formattedName;
         }
@@ -33,7 +46,7 @@ public class Pizza implements Item {
         }
     }
 
-    public enum Size {
+    enum Size {
         SMALL,
         MEDIUM,
         LARGE
@@ -41,6 +54,8 @@ public class Pizza implements Item {
 
     // Should these be mutable or immutable?
     // i.e. to edit an order should I make a new Pizza object, or edit an existing one?
+    // making new objects has slightly more overhead, but not that much
+    // probably a matter of design or something.
     private Topping topping;
     private Size size;
     private int quantity;
@@ -53,6 +68,11 @@ public class Pizza implements Item {
      * @param quantity Number of pizza(s)
      */
     public Pizza(Topping topping, Size size, int quantity) {
+        // will complain if these is true.
+        assert topping != null;
+        assert size != null;
+        assert quantity <= 0;
+
         this.topping = topping;
         this.size = size;
         this.quantity = quantity;
@@ -87,6 +107,9 @@ public class Pizza implements Item {
         this.quantity = quantity;
     }
 
+    /**
+     * @param quantity Quantity of pizza(s) to be added.
+     */
     @Override
     public void addQuantity(int quantity) {
         this.quantity += quantity;
@@ -98,40 +121,32 @@ public class Pizza implements Item {
     public double calcTotal() {
         double total = 0;
 
-        if (topping == null || size == null)
-            return -1;
-        else {
-            if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.SMALL))
-                total += S_VEGETARIAN_PRICE;
-            else if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.MEDIUM))
-                total += M_VEGETARIAN_PRICE;
-            else if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.LARGE))
-                total += L_VEGETARIAN_PRICE;
-            else if (topping.equals(Topping.CHEESE) && size.equals(Size.SMALL))
-                total += S_CHEESE_PRICE;
-            else if (topping.equals(Topping.CHEESE) && size.equals(Size.MEDIUM))
-                total += M_CHEESE_PRICE;
-            else if (topping.equals(Topping.CHEESE) && size.equals(Size.LARGE))
-                total += L_CHEESE_PRICE;
-            else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.SMALL))
-                total += S_PEPPERONI_PRICE;
-            else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.MEDIUM))
-                total += M_PEPPERONI_PRICE;
-            else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.LARGE))
-                total += L_PEPPERONI_PRICE;
-        }
+        // There's probably a library to make this prettier.
+        if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.SMALL))
+            total += S_VEGETARIAN_PRICE;
+        else if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.MEDIUM))
+            total += M_VEGETARIAN_PRICE;
+        else if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.LARGE))
+            total += L_VEGETARIAN_PRICE;
+        else if (topping.equals(Topping.CHEESE) && size.equals(Size.SMALL))
+            total += S_CHEESE_PRICE;
+        else if (topping.equals(Topping.CHEESE) && size.equals(Size.MEDIUM))
+            total += M_CHEESE_PRICE;
+        else if (topping.equals(Topping.CHEESE) && size.equals(Size.LARGE))
+            total += L_CHEESE_PRICE;
+        else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.SMALL))
+            total += S_PEPPERONI_PRICE;
+        else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.MEDIUM))
+            total += M_PEPPERONI_PRICE;
+        else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.LARGE))
+            total += L_PEPPERONI_PRICE;
 
         return total * quantity;
     }
 
     /**
-     * Prints line of receipt for this item.
+     * @return The formalized name of the pizza
      */
-    @Override
-    public void printInvoiceLine() {
-        Item.printInvoiceLine(getName(), quantity, getPrice());
-    }
-
     @Override
     public String getName() {
         String name = "";
@@ -167,9 +182,6 @@ public class Pizza implements Item {
     @Override
     public double getPrice() {
 
-        if (topping == null || size == null)
-            return 0;
-
         if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.SMALL))
             return S_VEGETARIAN_PRICE;
         else if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.MEDIUM))
@@ -193,7 +205,7 @@ public class Pizza implements Item {
     }
 
     /**
-     * Prints all topping/size combos and their respective prices
+     * Prints all topping/size combos and their respective prices in a fancy table.
      */
     public static String getMenu() {
         final String PIZZA_PATTERN = "%1$-12s $%2$-5.2f $%3$-5.2f $%4$-5.2f\n";
@@ -221,25 +233,11 @@ public class Pizza implements Item {
                         L_PEPPERONI_PRICE);
     }
 
-    public static String getToppingSelectionMenu() {
-        return "Select a topping (1-3).\n" +
-                "1) Vegetarian\n" +
-                "2) Cheese\n" +
-                "3) Pepperoni";
-    }
-
-    public static String getSizeSelectionMenu() {
-        return "Select a size (1-3).\n" +
-                "1) Small\n" +
-                "2) Medium\n" +
-                "3) Large";
-    }
-
     /**
-     * Equal = if they're both the same type of pizza (same size, same topping)
+     * Mainly assists in the consolidation of duplicate items in an order.
      *
      * @param obj The object to be compared.
-     * @return If the two Pizzas have the same toppings/pizza.
+     * @return If the two Pizzas have the same toppings/sizes.
      */
     public boolean equals(Object obj) {
         return obj instanceof Pizza &&

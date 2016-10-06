@@ -1,12 +1,18 @@
 /**
- * Represents an Appetizer item.
+ * @author David Luo
+ *         Represents an Appetizer item.
  */
-public class Appetizer implements Item {
+public final class Appetizer implements Item {
 
-    public static final double SALAD_PRICE = 4.5;
-    public static final double SOUP_PRICE = 5.0;
+    private static final double SALAD_PRICE = 4.5;
+    private static final double SOUP_PRICE = 5.0;
 
-    public enum AppetizerType {
+    public static final String APPETIZER_SELECTION_PROMPT =
+            "Select an appetizer (1-2).\n" +
+                    "1) Soup\n" +
+                    "2) Salad";
+
+    enum AppetizerType {
         SOUP("Soup"),
         SALAD("Salad");
 
@@ -31,6 +37,10 @@ public class Appetizer implements Item {
      * @param quantity      How many appetizers of this type were ordered.
      */
     public Appetizer(AppetizerType appetizerType, int quantity) {
+        // will complain if these is true.
+        assert appetizerType != null;
+        assert quantity <= 0;
+
         this.quantity = quantity;
         this.appetizerType = appetizerType;
     }
@@ -51,6 +61,9 @@ public class Appetizer implements Item {
         this.quantity = quantity;
     }
 
+    /**
+     * @param quantity Quantity of Appetizers(s) to be added.
+     */
     @Override
     public void addQuantity(int quantity) {
         this.quantity += quantity;
@@ -72,18 +85,16 @@ public class Appetizer implements Item {
     }
 
     /**
-     * Prints the invoice line for this appetizer.
+     * @return The formalized name of the Appetizer (i.e. Soup or Salad)
      */
-    @Override
-    public void printInvoiceLine() {
-        Item.printInvoiceLine(this.appetizerType.toString(), quantity, getPrice());
-    }
-
     @Override
     public String getName() {
         return appetizerType.equals(AppetizerType.SOUP) ? "Soup" : "Salad";
     }
 
+    /**
+     * @return The cost of 1 unit of soup/salad
+     */
     @Override
     public double getPrice() {
         return appetizerType.equals(AppetizerType.SOUP) ? SOUP_PRICE : SALAD_PRICE;
@@ -104,21 +115,21 @@ public class Appetizer implements Item {
         this.appetizerType = appetizerType;
     }
 
-    public static String getSelectionMenu() {
-        return "Select an appetizer (1-2).\n" +
-                "1) Soup\n" +
-                "2) Salad";
-    }
-
     /**
      * Lists available appetizers.
      */
-    public static String getMenu() {
+    static String getMenu() {
         return "Appetizers\n" +
-                Item.getMenu("Soup", SOUP_PRICE) +
-                Item.getMenu("Salad", SALAD_PRICE);
+                Item.getMenuLine("Soup", SOUP_PRICE) +
+                Item.getMenuLine("Salad", SALAD_PRICE);
     }
 
+    /**
+     * Mainly assists in the consolidation of duplicate items in an order.
+     *
+     * @param obj object to be compared.
+     * @return If the objects have the same properties (i.e. same type of appetizer.)
+     */
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Appetizer &&

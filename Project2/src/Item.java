@@ -1,12 +1,10 @@
 /**
- * Wrapper interface for order items.
+ * @author David Luo
+ *         Represents an Item you can order.
  */
 interface Item {
 
     String MENU_PATTERN = "%1s%2s$%3$.2f\n";
-    String INVOICE_PATTERN = "%1$-22s %2$9d $%3$7.2f\n";
-    String INVOICE_HEADER_PATTERN = "%1$-28s %2$3s %3$8s\n";
-    String INVOICE_SEPARATOR = "-----------------------------------------";
 
     /**
      * @return Quantity of Item ordered.
@@ -29,11 +27,22 @@ interface Item {
     double calcTotal();
 
     /**
+     * @return The formalized name of the <code>Item</code>.
+     */
+    String getName();
+
+    /**
+     * @return The cost of one unit of the <code>Item</code>.
+     */
+    double getPrice();
+
+    /**
      * Helper method to print available choices.
-     * @param item The name of the item on the menu.
+     *
+     * @param item  The name of the item on the menu.
      * @param price Corresponding price to the item.
      */
-    static String getMenu(String item, double price) {
+    static String getMenuLine(String item, double price) {
         StringBuilder filler = new StringBuilder();
 
         // Magic Number™
@@ -45,36 +54,6 @@ interface Item {
 
         return String.format(MENU_PATTERN, item, filler.toString(), price);
     }
-
-    /**
-     * Utility method used to print the final receipt/invoice
-     * @param item Name of item.
-     * @param totalPrice Total price of items.
-     */
-    static void printInvoiceLine(String item, int quantity, double totalPrice) {
-        System.out.printf(INVOICE_PATTERN, item, quantity, totalPrice);
-    }
-
-    static void printInvoiceHeader() {
-        System.out.printf(INVOICE_HEADER_PATTERN, "Item", "Qty", "Price");
-    }
-
-    static void printInvoiceSeparator() {
-        System.out.println(INVOICE_SEPARATOR);
-    }
-
-
-    static String getQuantityMenu() {
-        return "Enter Quantity";
-    }
-
-    /**
-     * Prints the invoice.
-     */
-    void printInvoiceLine();
-
-    String getName();
-    double getPrice();
 
 
 }

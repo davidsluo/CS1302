@@ -1,9 +1,10 @@
 /**
- * Represents a Drink.
+ * @author David Luo
+ *         Represents a Drink.
  */
-public class Drink implements Item {
+public final class Drink implements Item {
 
-    public static final double DRINK_PRICE = 2.0;
+    private static final double DRINK_PRICE = 2.0;
 
     private int quantity;
 
@@ -13,8 +14,11 @@ public class Drink implements Item {
      * @param quantity Number of drinks in this order.
      */
     public Drink(int quantity) {
+        // will complain if this is true.
+        assert quantity <= 0;
         this.quantity = quantity;
     }
+
 
     /**
      * @return Quantity of drink(s) ordered.
@@ -32,6 +36,9 @@ public class Drink implements Item {
         this.quantity = quantity;
     }
 
+    /**
+     * @param quantity Quantity of drink(s) to be added.
+     */
     @Override
     public void addQuantity(int quantity) {
         this.quantity += quantity;
@@ -46,30 +53,19 @@ public class Drink implements Item {
     }
 
     /**
-     * Prints receipt line for this drink.
+     * @return "Drink"
      */
-    @Override
-    public void printInvoiceLine() {
-        Item.printInvoiceLine("Drink", quantity, getPrice());
-    }
-
     @Override
     public String getName() {
         return "Drink";
     }
 
+    /**
+     * @return The price of 1 drink.
+     */
     @Override
     public double getPrice() {
         return DRINK_PRICE;
-    }
-
-    /**
-     * Prints the drink selection menu.
-     */
-    public static String getSelectionMenu() {
-        return "Select a drink (1-2).\n" +
-                "1) Add drink" +
-                "2) No drink";
     }
 
     /**
@@ -77,11 +73,11 @@ public class Drink implements Item {
      */
     public static String getMenu() {
         return "Drinks\n" +
-                Item.getMenu("Drink", DRINK_PRICE);
+                Item.getMenuLine("Drink", DRINK_PRICE);
     }
 
     /**
-     * Returns true if it has the same (non-existent) properties.
+     * Mainly assists in the consolidation of duplicate items in an order.
      *
      * @param obj the object to check for equality
      * @return if the two objects are both Drinks

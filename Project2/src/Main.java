@@ -4,37 +4,51 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Created by David on 10/3/2016.
+ * @author David Luo
+ * @filename Main.java
+ * @date October 6, 2016
+ * @purpose Simulates a Pizza ordering program using Object Oriented Programming
+ * (i.e. polymorphism, encapsulation, etc.)
  */
 public class Main {
 
-    private static List<Order> orders  = new ArrayList<>();
-    private static Scanner     scanner = new Scanner(System.in);
+    private static List<Order> orders = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
 
+    private final static String QUANTITY_PROMPT = "Enter Quantity";
 
     public static void main(String[] args) {
 
-        boolean cont;
+        boolean cont; // Stands for continue
         System.out.println("Welcome to <Pizza Place>.");
-        while (true) {
-            try {
 
+        // The main loop
+        while (true) {
+            // The catch everything block
+            try {
+                // Run until exit
                 do {
-                    // TODO: 10/4/2016 Loop this for new orders
                     cont = true;
                     Order order = new Order();
+                    // Add more to order until exit
                     while (cont) {
                         Order.printMenu();
-                        System.out.println(Order.getOptionsMenu());
+                        // Split into ordering appetizers, pizza, drinks
+                        System.out.println(Order.OPTIONS_PROMPT);
                         switch (scanner.next()) {
+                            // Order a pizza
                             case "1":
+                                // Keep ordering while they want to order more
                                 do {
                                     Pizza.Topping topping = null;
-                                    Pizza.Size    size    = null;
-                                    int           pQuantity;
+                                    Pizza.Size size = null;
+                                    int pQuantity;
+
                                     // Map to array instead?
                                     // TODO: 10/3/2016 Make this prettier
-                                    switch (getStrInput(Pizza.getSizeSelectionMenu(), "1", "2", "3")) {
+
+                                    // Ask for size
+                                    switch (getStrInput(Pizza.SIZE_SELECTION_PROMPT, "1", "2", "3")) {
                                         case "1":
                                             size = Pizza.Size.SMALL;
                                             break;
@@ -45,7 +59,9 @@ public class Main {
                                             size = Pizza.Size.LARGE;
                                             break;
                                     }
-                                    switch (getStrInput(Pizza.getToppingSelectionMenu(), "1", "2", "3")) {
+
+                                    // Ask for topping
+                                    switch (getStrInput(Pizza.TOPPING_SELECTION_PROMPT, "1", "2", "3")) {
                                         case "1":
                                             topping = Pizza.Topping.VEGETARIAN;
                                             break;
@@ -57,22 +73,21 @@ public class Main {
                                             break;
                                     }
 
-                                    pQuantity = getIntInput(Item.getQuantityMenu());
-
-                                    assert topping != null;
-                                    assert size != null;
-                                    assert pQuantity != 0;
+                                    pQuantity = getQuantityInput(QUANTITY_PROMPT);
 
                                     order.addItem(new Pizza(topping, size, pQuantity));
                                     order.printInvoice();
                                 } while (getYesNo("Order another pizza? (Y/N)"));
                                 break;
+                            // Order an Appetizer
                             case "2":
+                                // Keep ordering while they want to order more
                                 do {
                                     Appetizer.AppetizerType type = null;
-                                    int                     aQuantity;
+                                    int aQuantity;
 
-                                    switch (getStrInput(Appetizer.getSelectionMenu(), "1", "2")) {
+                                    // Ask for appetizer type
+                                    switch (getStrInput(Appetizer.APPETIZER_SELECTION_PROMPT, "1", "2")) {
                                         case "1":
                                             type = Appetizer.AppetizerType.SOUP;
                                             break;
@@ -81,24 +96,25 @@ public class Main {
                                             break;
                                     }
 
-                                    aQuantity = getIntInput(Item.getQuantityMenu());
+                                    aQuantity = getQuantityInput(QUANTITY_PROMPT);
 
-                                    assert type != null;
-                                    assert aQuantity != 0;
                                     order.addItem(new Appetizer(type, aQuantity));
                                     order.printInvoice();
                                 } while (getYesNo("Order another appetizer? (Y/N)"));
                                 break;
+                            // Order Drinks
                             case "3":
+                                // Keep ordering while they want to order more
                                 do {
-                                    int dQuantity = getIntInput(Item.getQuantityMenu());
+                                    // Ask for quantity of drinks (since there's only one choice)
+                                    int dQuantity = getQuantityInput(QUANTITY_PROMPT);
 
-                                    assert dQuantity != 0;
                                     order.addItem(new Drink(dQuantity));
                                     order.printInvoice();
                                 } while (getYesNo("Order another drink? (Y/N)"));
                                 break;
                             default:
+                                // Stop adding things to order
                                 cont = false;
                                 break;
                         }
@@ -109,6 +125,7 @@ public class Main {
                 } while (getStrInput("Order finished. Enter N for new customer or E to exit.", "n", "e").equals("n"));
                 break;
             } catch (Exception | Error e) {
+                // Should never happen, but just in case.
                 if (getYesNo("Something went wrong. Exit? (Y/N)"))
                     break;
             }
@@ -118,21 +135,17 @@ public class Main {
 
     }
 
+    /**
+     * Helper method to print all orders made in this session.
+     */
     private static void printSummary() {
 
-        final String ORDER_TITLE  = "Order %d\n";
-//        final String ORDER_HEADER = "%1$-25s%2$-10s$%3$4s\n";
-//        final String ORDER_ITEM   = "%1$-25s%2$-10s$%3$4.2f\n";
-
-        System.out.println("Invoices: ");
+        System.out.println("Invoices:\n");
         for (int i = 0; i < orders.size(); i++) {
-            System.out.printf(ORDER_TITLE, i + 1);
-//            System.out.printf(ORDER_HEADER, "Item", "Quantity", "Price");
-//            for (Item item : orders.get(i).getItems()) {
-//                System.out.printf(ORDER_ITEM, item.getName(), item.getQuantity(), item.getPrice());
-//            }
+            System.out.printf("Order %d\n", i + 1);
             orders.get(i).printInvoice();
         }
+
         System.out.println("Session Summary");
         System.out.println("Total number of orders:\t" + orders.size());
         System.out.println("Pizzas sold:           \t" + getTotalOrderCount(Pizza.class));
@@ -140,19 +153,34 @@ public class Main {
         System.out.println("Drinks sold:           \t" + getTotalOrderCount(Drink.class));
     }
 
+    /**
+     * Abrevated version of {@link #getStrInput} for yes/no questions.
+     *
+     * @param query What to ask the user initially and whenever they enter an invalid input.
+     * @return True/False respective to Yes/No
+     */
     private static boolean getYesNo(String query) {
         return getStrInput(query, "y", "n").equals("y");
     }
 
+    /**
+     * Helper method to query user for a valid option from list of valid options.
+     *
+     * @param inputQuery  What to ask the user initially and whenever they enter an invalid input.
+     * @param validInputs What can be considered valid input.
+     * @return An element from validInputs
+     */
     private static String getStrInput(String inputQuery, String... validInputs) {
         String input;
+
+        // Keep asking for input until a valid one is returned.
         while (true) {
             System.out.println(inputQuery);
 
-            input = scanner.next().toLowerCase();
+            input = scanner.next();
 
             for (String valid : validInputs) {
-                if (valid.toLowerCase().equals(input))
+                if (valid.equalsIgnoreCase(input))
                     return input;
             }
 
@@ -160,9 +188,16 @@ public class Main {
         }
     }
 
-    private static int getIntInput(String inputQuery) {
+    /**
+     * Helper method to query user for valid quantity.
+     *
+     * @param inputQuery What to ask the user initially and whenever they enter an invalid input.
+     * @return A quantity between 1 and 100 inclusive.
+     */
+    private static int getQuantityInput(String inputQuery) {
         int input;
 
+        // Keep asking for input until a valid one is returned.
         while (true) {
             System.out.println(inputQuery);
 
@@ -170,7 +205,6 @@ public class Main {
                 // For some reason nextInt gave a weird infinite loop type situation.
                 input = Integer.valueOf(scanner.next());
                 if (input <= 0 || input > 100)
-                    // Would make own exception class if I could be bothered to do so.
                     throw new NumberFormatException();
                 else
                     return input;
@@ -181,6 +215,12 @@ public class Main {
         }
     }
 
+    /**
+     * Helper class to get all of <code>type</code> items in all orders.
+     *
+     * @param type Type of item to count.
+     * @return The number of items ordered in this session.
+     */
     private static int getTotalOrderCount(Class type) {
         int totalCount = 0;
         for (Order order : orders) {
