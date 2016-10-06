@@ -60,16 +60,9 @@ public final class Appetizer extends Item {
     }
 
     /**
-     * @param appetizerType The type of appetizer to be ordered.
-     */
-    public void setAppetizerType(AppetizerType appetizerType) {
-        this.appetizerType = appetizerType;
-    }
-
-    /**
      * Lists available appetizers.
      */
-    static String getMenu() {
+    public static String getMenu() {
         return "Appetizers\n" +
                 Item.getMenuLine("Soup", SOUP_PRICE) +
                 Item.getMenuLine("Salad", SALAD_PRICE);

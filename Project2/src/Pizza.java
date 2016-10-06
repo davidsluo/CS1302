@@ -16,13 +16,13 @@ public final class Pizza extends Item {
     private static final double M_PEPPERONI_PRICE = 8.5;
     private static final double L_PEPPERONI_PRICE = 12.0;
 
-    public static final String TOPPING_SELECTION_PROMPT =
+    static final String TOPPING_SELECTION_PROMPT =
             "Select a topping (1-3).\n" +
                     "1) Vegetarian\n" +
                     "2) Cheese\n" +
                     "3) Pepperoni";
 
-    public static final String SIZE_SELECTION_PROMPT =
+    static final String SIZE_SELECTION_PROMPT =
             "Select a size (1-3).\n" +
                     "1) Small\n" +
                     "2) Medium\n" +

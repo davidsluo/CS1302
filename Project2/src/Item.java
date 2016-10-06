@@ -22,7 +22,7 @@ abstract class Item implements Product {
      * @param item  The name of the item on the menu.
      * @param price Corresponding price to the item.
      */
-    static String getMenuLine(String item, double price) {
+    protected static String getMenuLine(String item, double price) {
         StringBuilder filler = new StringBuilder();
 
         // Magic Number™

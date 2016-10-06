@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class Order {
 
-    public static double TAX = 0.07;
+    private static double TAX = 0.07;
     public static final String OPTIONS_PROMPT =
             "Enter (1-3) to select an option or any other key to finish ordering.\n" +
                     "1) Order a pizza.\n" +
@@ -20,7 +20,7 @@ public class Order {
     /**
      * Remove consolidate duplicate items in this order.
      */
-    public void consolidateDuplicates() {
+    private void consolidateDuplicates() {
 
         List<Item> uniqueItems = new ArrayList<>();
 
