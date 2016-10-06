@@ -1,7 +1,7 @@
 BUILD INSTRUCTIONS
 ------------------
 Build with the makefile:
-	bash$ make
+	user@nike$ make
 
 RUN INSTRUCTIONS
 ----------------
