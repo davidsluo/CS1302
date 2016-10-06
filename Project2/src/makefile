@@ -12,6 +12,7 @@ CLASSES = \
 	Drink.java \
 	Order.java \
 	Item.java \
+	Product.java \
 	Main.java
 
 default: classes
