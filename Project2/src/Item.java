@@ -2,39 +2,19 @@
  * @author David Luo
  *         Represents an Item you can order.
  */
-interface Item {
+abstract class Item implements Product {
 
-    String MENU_PATTERN = "%1s%2s$%3$.2f\n";
+    private static final String MENU_PATTERN = "%1s%2s$%3$.2f\n";
 
-    /**
-     * @return Quantity of Item ordered.
-     */
-    int getQuantity();
+    private int quantity;
+    private double price;
+    private String name;
 
-    /**
-     * @param quantity Quantity of Item to order.
-     */
-    void setQuantity(int quantity);
-
-    /**
-     * @param quantity Quantity of Item(s) to be added.
-     */
-    void addQuantity(int quantity);
-
-    /**
-     * @return Price of Quantity count of Items
-     */
-    double calcTotal();
-
-    /**
-     * @return The formalized name of the <code>Item</code>.
-     */
-    String getName();
-
-    /**
-     * @return The cost of one unit of the <code>Item</code>.
-     */
-    double getPrice();
+    public Item(int quantity) {
+        // will complain if this is false.
+        assert quantity > 0;
+        this.quantity = quantity;
+    }
 
     /**
      * Helper method to print available choices.
@@ -55,5 +35,39 @@ interface Item {
         return String.format(MENU_PATTERN, item, filler.toString(), price);
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void addQuantity(int quantity) {
+        this.quantity += quantity;
+    }
+
+    @Override
+    public double calcTotal() {
+        return price * quantity;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public double getPrice() {
+        return price;
+    }
+
+    void setPrice(double price) {
+        this.price = price;
+    }
 
 }

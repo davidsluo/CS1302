@@ -2,7 +2,7 @@
  * @author David Luo
  *         Represents a Pizza.
  */
-public final class Pizza implements Item {
+public final class Pizza extends Item {
 
     private static final double S_VEGETARIAN_PRICE = 6.5;
     private static final double M_VEGETARIAN_PRICE = 10.5;
@@ -58,7 +58,6 @@ public final class Pizza implements Item {
     // probably a matter of design or something.
     private Topping topping;
     private Size size;
-    private int quantity;
 
     /**
      * Constructor
@@ -68,14 +67,43 @@ public final class Pizza implements Item {
      * @param quantity Number of pizza(s)
      */
     public Pizza(Topping topping, Size size, int quantity) {
-        // will complain if these is true.
+        super(quantity);
+        // will complain if these is false.
         assert topping != null;
         assert size != null;
-        assert quantity <= 0;
 
         this.topping = topping;
         this.size = size;
-        this.quantity = quantity;
+
+        // There's probably a way to make this prettier.
+        if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.SMALL)) {
+            super.setPrice(S_VEGETARIAN_PRICE);
+            super.setName("Small Vegetarian Pizza");
+        } else if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.MEDIUM)) {
+            super.setPrice(M_VEGETARIAN_PRICE);
+            super.setName("Medium Vegetarian Pizza");
+        } else if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.LARGE)) {
+            super.setPrice(L_VEGETARIAN_PRICE);
+            super.setName("Large Vegetarian Pizza");
+        } else if (topping.equals(Topping.CHEESE) && size.equals(Size.SMALL)) {
+            super.setPrice(S_CHEESE_PRICE);
+            super.setName("Small Cheese Pizza");
+        } else if (topping.equals(Topping.CHEESE) && size.equals(Size.MEDIUM)) {
+            super.setPrice(M_CHEESE_PRICE);
+            super.setName("Medium Cheese Pizza");
+        } else if (topping.equals(Topping.CHEESE) && size.equals(Size.LARGE)) {
+            super.setPrice(L_CHEESE_PRICE);
+            super.setName("Large Cheese Pizza");
+        } else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.SMALL)) {
+            super.setPrice(S_PEPPERONI_PRICE);
+            super.setName("Small Pepperoni Pizza");
+        } else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.MEDIUM)) {
+            super.setPrice(M_PEPPERONI_PRICE);
+            super.setName("Medium Pepperoni Pizza");
+        } else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.LARGE)) {
+            super.setPrice(L_PEPPERONI_PRICE);
+            super.setName("Large Pepperoni Pizza");
+        }
     }
 
     /**
@@ -85,123 +113,11 @@ public final class Pizza implements Item {
         return topping;
     }
 
-
     /**
      * @return Size of the pizza(s)
      */
     public Size getSize() {
         return size;
-    }
-
-    /**
-     * @return Quantity of pizza(s) ordered.
-     */
-    public int getQuantity() {
-        return quantity;
-    }
-
-    /**
-     * @param quantity Number of pizza(s) to order.
-     */
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    /**
-     * @param quantity Quantity of pizza(s) to be added.
-     */
-    @Override
-    public void addQuantity(int quantity) {
-        this.quantity += quantity;
-    }
-
-    /**
-     * @return Price of quantity of pizza(s) ordered.
-     */
-    public double calcTotal() {
-        double total = 0;
-
-        // There's probably a library to make this prettier.
-        if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.SMALL))
-            total += S_VEGETARIAN_PRICE;
-        else if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.MEDIUM))
-            total += M_VEGETARIAN_PRICE;
-        else if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.LARGE))
-            total += L_VEGETARIAN_PRICE;
-        else if (topping.equals(Topping.CHEESE) && size.equals(Size.SMALL))
-            total += S_CHEESE_PRICE;
-        else if (topping.equals(Topping.CHEESE) && size.equals(Size.MEDIUM))
-            total += M_CHEESE_PRICE;
-        else if (topping.equals(Topping.CHEESE) && size.equals(Size.LARGE))
-            total += L_CHEESE_PRICE;
-        else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.SMALL))
-            total += S_PEPPERONI_PRICE;
-        else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.MEDIUM))
-            total += M_PEPPERONI_PRICE;
-        else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.LARGE))
-            total += L_PEPPERONI_PRICE;
-
-        return total * quantity;
-    }
-
-    /**
-     * @return The formalized name of the pizza
-     */
-    @Override
-    public String getName() {
-        String name = "";
-        switch (topping) {
-            case CHEESE:
-                name += "Cheese ";
-                break;
-            case PEPPERONI:
-                name += "Pepperoni ";
-                break;
-            case VEGETARIAN:
-                name += "Vegetarian ";
-                break;
-        }
-
-        switch (size) {
-            case SMALL:
-                name += "Small ";
-                break;
-            case MEDIUM:
-                name += "Medium ";
-                break;
-            case LARGE:
-                name += "Large ";
-                break;
-        }
-
-        name += "Pizza";
-
-        return name;
-    }
-
-    @Override
-    public double getPrice() {
-
-        if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.SMALL))
-            return S_VEGETARIAN_PRICE;
-        else if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.MEDIUM))
-            return M_VEGETARIAN_PRICE;
-        else if (topping.equals(Topping.VEGETARIAN) && size.equals(Size.LARGE))
-            return L_VEGETARIAN_PRICE;
-        else if (topping.equals(Topping.CHEESE) && size.equals(Size.SMALL))
-            return S_CHEESE_PRICE;
-        else if (topping.equals(Topping.CHEESE) && size.equals(Size.MEDIUM))
-            return M_CHEESE_PRICE;
-        else if (topping.equals(Topping.CHEESE) && size.equals(Size.LARGE))
-            return L_CHEESE_PRICE;
-        else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.SMALL))
-            return S_PEPPERONI_PRICE;
-        else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.MEDIUM))
-            return M_PEPPERONI_PRICE;
-        else if (topping.equals(Topping.PEPPERONI) && size.equals(Size.LARGE))
-            return L_PEPPERONI_PRICE;
-
-        return 0;
     }
 
     /**

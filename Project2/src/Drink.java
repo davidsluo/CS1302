@@ -2,11 +2,9 @@
  * @author David Luo
  *         Represents a Drink.
  */
-public final class Drink implements Item {
+public final class Drink extends Item {
 
     private static final double DRINK_PRICE = 2.0;
-
-    private int quantity;
 
     /**
      * Constructor
@@ -14,58 +12,9 @@ public final class Drink implements Item {
      * @param quantity Number of drinks in this order.
      */
     public Drink(int quantity) {
-        // will complain if this is true.
-        assert quantity <= 0;
-        this.quantity = quantity;
-    }
-
-
-    /**
-     * @return Quantity of drink(s) ordered.
-     */
-    @Override
-    public int getQuantity() {
-        return quantity;
-    }
-
-    /**
-     * @param quantity Number of drink(s) to order.
-     */
-    @Override
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    /**
-     * @param quantity Quantity of drink(s) to be added.
-     */
-    @Override
-    public void addQuantity(int quantity) {
-        this.quantity += quantity;
-    }
-
-    /**
-     * @return Price of quantity of drink(s) ordered.
-     */
-    @Override
-    public double calcTotal() {
-        return DRINK_PRICE * quantity;
-    }
-
-    /**
-     * @return "Drink"
-     */
-    @Override
-    public String getName() {
-        return "Drink";
-    }
-
-    /**
-     * @return The price of 1 drink.
-     */
-    @Override
-    public double getPrice() {
-        return DRINK_PRICE;
+        super(quantity);
+        super.setName("Drink");
+        super.setPrice(DRINK_PRICE);
     }
 
     /**
