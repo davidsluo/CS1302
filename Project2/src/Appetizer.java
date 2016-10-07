@@ -7,7 +7,7 @@ public final class Appetizer extends Item {
     private static final double SALAD_PRICE = 4.5;
     private static final double SOUP_PRICE = 5.0;
 
-    public static final String APPETIZER_SELECTION_PROMPT =
+    static final String APPETIZER_SELECTION_PROMPT =
             "Select an appetizer (1-2).\n" +
                     "1) Soup\n" +
                     "2) Salad";

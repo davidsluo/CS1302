@@ -8,7 +8,7 @@ import java.util.List;
 public class Order {
 
     private static double TAX = 0.07;
-    public static final String OPTIONS_PROMPT =
+    static final String OPTIONS_PROMPT =
             "Enter (1-3) to select an option or any other key to finish ordering.\n" +
                     "1) Order a pizza.\n" +
                     "2) Order an appetizer.\n" +
