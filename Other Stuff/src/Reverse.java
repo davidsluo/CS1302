@@ -8,7 +8,7 @@ import java.util.Stack;
 
 public class Reverse {
 
-    static Stack<Character> stack = new Stack<>();
+    private static Stack<Character> stack = new Stack<Character>();
 
     public static String reverse(String s) {
         for (char c : s.toCharArray()) {
@@ -25,8 +25,11 @@ public class Reverse {
     }
 
     public static void main(String[] args) {
+        // Prints "otatop"
         System.out.println(Reverse.reverse("potato"));
+        // Prints "54321"
         System.out.println(Reverse.reverse("12345"));
+        // Prints "zyxwvutsrqponmlkjihgfedcba"
         System.out.println(Reverse.reverse("abcdefghijklmnopqrstuvwxyz"));
     }
 }
