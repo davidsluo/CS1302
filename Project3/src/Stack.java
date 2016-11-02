@@ -4,17 +4,18 @@ import Exceptions.FullStackException;
 /**
  * {@inheritDoc}
  */
-@SuppressWarnings("unchecked")
 public class Stack<T> implements StackADT<T> {
 
     private T[] stack;
     private int top = -1;
     public final int DEFAULT_CAPACITY = 100;
 
+    @SuppressWarnings("unchecked")
     public Stack(int capacity) {
         stack = (T[]) new Object[capacity];
     }
 
+    @SuppressWarnings("unchecked")
     public Stack() {
         stack = (T[]) new Object[DEFAULT_CAPACITY];
     }
@@ -66,7 +67,7 @@ public class Stack<T> implements StackADT<T> {
      */
     @Override
     public boolean isEmpty() {
-        return top == -1;
+        return size() == 0;
     }
 
     /**
@@ -74,7 +75,7 @@ public class Stack<T> implements StackADT<T> {
      */
     @Override
     public boolean isFull() {
-        return top + 1 == stack.length;
+        return size() == maxSize();
     }
 
     /**
@@ -82,13 +83,15 @@ public class Stack<T> implements StackADT<T> {
      */
     @Override
     public int size() {
-        int count = 0;
-        for (T t : stack) {
-            if (t != null) {
-                count++;
-            }
-        }
-        return count;
+//        int count = 0;
+//        for (T t : stack) {
+//            if (t != null) {
+//                count++;
+//            }
+//        }
+//        return count;
+
+        return top + 1;
     }
 
     public int maxSize() {

@@ -13,21 +13,21 @@ public interface StackADT<T> {
      *
      * @param element element to be pushed onto the stack
      */
-    void push(T element) throws FullStackException;
+    void push(T element);
 
     /**
      * Removes and returns the top element from this stack.
      *
      * @return the element removed from the stack
      */
-    T pop() throws EmptyStackException;
+    T pop();
 
     /**
      * Returns without removing the top element of this stack.
      *
      * @return the element on top of the stack
      */
-    T peek() throws EmptyStackException;
+    T peek();
 
     /**
      * Returns true if this stack contains no elements.

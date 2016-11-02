@@ -60,14 +60,16 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
     private JButton setMaxSize;
 
     public IntegerStackEmulator() {
-        this.setLayout(new GridLayout(1, 2));
+        this.setLayout(new GridBagLayout());
         stack = new Stack<>();
 
-
+        // The Table ===================================================================================================
         stackTable = new JTable();
         tableModel = new DefaultTableModel();
 
-        tableModel.setColumnIdentifiers(new String[]{"Stack"});
+        String header = String.format("Stack    Max Size:%d", stack.maxSize());
+
+        tableModel.setColumnIdentifiers(new String[]{header});
         tableModel.setRowCount(stack.maxSize());
 
         stackTable.setModel(tableModel);
@@ -75,18 +77,38 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
 
         rightPanel = new JScrollPane(stackTable);
 
-        this.add(rightPanel);
+        {
+            GridBagConstraints constraints = new GridBagConstraints();
+            constraints.gridx = 0;
+            constraints.gridy = 0;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 4;
+            constraints.weightx = 1;
+            constraints.weighty = 1;
+            constraints.fill = GridBagConstraints.BOTH;
 
+            this.add(rightPanel, constraints);
+        }
 
-        leftPanel = new JPanel();
-        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-
+        // The Input/Output Field ======================================================================================
         ioField = new JTextField();
         ioField.setEnabled(false);
         ioField.setDisabledTextColor(Color.black);
         ioField.setFont(new Font("Arial", Font.PLAIN, 32));
-        leftPanel.add(ioField);
+        {
+            GridBagConstraints constraints = new GridBagConstraints();
+            constraints.gridx = 1;
+            constraints.gridy = 0;
+            constraints.gridwidth = 2;
+            constraints.gridheight = 1;
+            constraints.weightx = 1;
+            constraints.weighty = 0;
+            constraints.fill = GridBagConstraints.BOTH;
 
+            this.add(ioField, constraints);
+        }
+
+        // Number Buttons + Push + Pop =================================================================================
         buttonPanel = new JPanel(new GridLayout(4, 3));
         pushButton = new JButton("Push");
         popButton = new JButton("Pop");
@@ -108,28 +130,68 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
             buttonPanel.add(b);
             b.addActionListener(this);
         }
-        leftPanel.add(buttonPanel);
 
+        {
+            GridBagConstraints constraints = new GridBagConstraints();
+            constraints.gridx = 1;
+            constraints.gridy = 1;
+            constraints.gridwidth = 2;
+            constraints.gridheight = 1;
+            constraints.weightx = 1;
+            constraints.weighty = 1;
+            constraints.fill = GridBagConstraints.BOTH;
+
+            this.add(buttonPanel, constraints);
+        }
+
+        // Clear Button ================================================================================================
         clear = new JButton("Clear");
         clear.addActionListener(this);
-        leftPanel.add(clear);
+        {
+            GridBagConstraints constraints = new GridBagConstraints();
+            constraints.gridx = 1;
+            constraints.gridy = 2;
+            constraints.gridwidth = 2;
+            constraints.gridheight = 1;
+            constraints.weightx = 1;
+            constraints.weighty = .1;
+            constraints.fill = GridBagConstraints.BOTH;
 
-        sizePanel = new JPanel();
+            this.add(clear, constraints);
+        }
 
+        // Size Field ==================================================================================================
         sizeField = new JTextField(8);
         sizeField.setText(String.valueOf(stack.size()));
+        {
+            GridBagConstraints constraints = new GridBagConstraints();
+            constraints.gridx = 1;
+            constraints.gridy = 3;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 1;
+            constraints.weightx = 1;
+            constraints.weighty = 0;
+            constraints.fill = GridBagConstraints.BOTH;
 
-        sizePanel.add(sizeField);
+            this.add(sizeField, constraints);
+        }
 
         setMaxSize = new JButton("Set Size");
         setMaxSize.addActionListener(this);
+        {
+            GridBagConstraints constraints = new GridBagConstraints();
+            constraints.gridx = 2;
+            constraints.gridy = 3;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 1;
+            constraints.weightx = 1;
+            constraints.weighty = 0;
+            constraints.fill = GridBagConstraints.BOTH;
 
-        sizePanel.add(setMaxSize);
+            this.add(setMaxSize, constraints);
+        }
 
-        leftPanel.add(sizePanel);
-
-
-        this.add(leftPanel);
+        // =============================================================================================================
 
         this.pack();
         this.setMinimumSize(new Dimension(600, 400));
