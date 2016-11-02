@@ -1,7 +1,8 @@
-package Exceptions;
+package MyStack.Exceptions;
 
 /**
- * Created by David on 10/24/2016.
+ * @author David Luo
+ *         Thrown when attempting to push to a full stack.
  */
 public class FullStackException extends RuntimeException {
     public FullStackException(String s) {

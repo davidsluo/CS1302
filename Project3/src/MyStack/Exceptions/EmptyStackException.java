@@ -1,7 +1,8 @@
-package Exceptions;
+package MyStack.Exceptions;
 
 /**
- * Created by David on 10/24/2016.
+ * @author David Luo
+ *         Thrown when attempting to pop from an empty stack.
  */
 public class EmptyStackException extends RuntimeException {
     public EmptyStackException(String s) {

@@ -1,5 +1,4 @@
-import Exceptions.EmptyStackException;
-import Exceptions.FullStackException;
+package MyStack;
 
 /**
  * Defines the interface to a stack collection.

@@ -1,20 +1,30 @@
-import Exceptions.EmptyStackException;
-import Exceptions.FullStackException;
+package MyStack;
+
+import MyStack.Exceptions.EmptyStackException;
+import MyStack.Exceptions.FullStackException;
 
 /**
  * {@inheritDoc}
  */
 public class Stack<T> implements StackADT<T> {
 
+    public static final int DEFAULT_CAPACITY = 100;
     private T[] stack;
     private int top = -1;
-    public final int DEFAULT_CAPACITY = 100;
 
+    /**
+     * Constructor. Creates a stack of the given size.
+     *
+     * @param capacity The capacity of the stack.
+     */
     @SuppressWarnings("unchecked")
     public Stack(int capacity) {
         stack = (T[]) new Object[capacity];
     }
 
+    /**
+     * Default Constructor. Creates a stack of size 100.
+     */
     @SuppressWarnings("unchecked")
     public Stack() {
         stack = (T[]) new Object[DEFAULT_CAPACITY];
@@ -29,7 +39,7 @@ public class Stack<T> implements StackADT<T> {
             stack[top + 1] = element;
             top++;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new FullStackException("Stack full");
+            throw new FullStackException("MyStack.Stack full");
         }
     }
 
@@ -46,7 +56,7 @@ public class Stack<T> implements StackADT<T> {
             return popped;
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new EmptyStackException("Stack empty");
+            throw new EmptyStackException("MyStack.Stack empty");
         }
     }
 
@@ -58,7 +68,7 @@ public class Stack<T> implements StackADT<T> {
         try {
             return stack[top];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new EmptyStackException("Stack empty");
+            throw new EmptyStackException("MyStack.Stack empty");
         }
     }
 
@@ -94,6 +104,11 @@ public class Stack<T> implements StackADT<T> {
         return top + 1;
     }
 
+    /**
+     * Return the maximum number of elements that can be stored in this stack.
+     *
+     * @return the maximum number of elements that can be stored in this stack.
+     */
     public int maxSize() {
         return stack.length;
     }

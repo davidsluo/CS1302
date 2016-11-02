@@ -1,5 +1,7 @@
-import Exceptions.EmptyStackException;
-import Exceptions.FullStackException;
+package MyStack;
+
+import MyStack.Exceptions.EmptyStackException;
+import MyStack.Exceptions.FullStackException;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -8,36 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by David on 10/30/2016.
+ * @author David Luo
+ *         Does all the GUI stuff.
  */
 public class IntegerStackEmulator extends JFrame implements ActionListener {
-
-//    private enum Buttons {
-//        ONE(new JButton("1")),
-//        TWO(new JButton("2")),
-//        THREE(new JButton("3")),
-//        FOUR(new JButton("4")),
-//        FIVE(new JButton("5")),
-//        SIX(new JButton("6")),
-//        SEVEN(new JButton("7")),
-//        EIGHT(new JButton("8")),
-//        NINE(new JButton("9")),
-//        PUSH(new JButton("Push")),
-//        ZERO(new JButton("0")),
-//        POP(new JButton("Pop")),
-//        CLEAR(new JButton("Clear")),
-//        SET_SIZE(new JButton("Set Size"));
-//
-//        private JButton button;
-//
-//        Buttons(JButton button) {
-//            this.button = button;
-//        }
-//
-//        public JButton getButton() {
-//            return button;
-//        }
-//    }
 
     private Stack<Integer> stack;
 
@@ -45,7 +21,6 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
     private DefaultTableModel tableModel;
 
     private JScrollPane rightPanel;
-    private JPanel leftPanel;
 
     private JTextField ioField;
 
@@ -55,10 +30,12 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
     private JButton popButton;
     private JButton clear;
 
-    private JPanel sizePanel;
     private JTextField sizeField;
     private JButton setMaxSize;
 
+    /**
+     * Constructor
+     */
     public IntegerStackEmulator() {
         this.setLayout(new GridBagLayout());
         stack = new Stack<>();
@@ -69,7 +46,7 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
         stackTable = new JTable();
         tableModel = new DefaultTableModel();
 
-        String header = String.format("Stack    Max Size:%d", stack.maxSize());
+        String header = String.format("MyStack.Stack    Max Size:%d", stack.maxSize());
 
         tableModel.setColumnIdentifiers(new String[]{header});
         tableModel.setRowCount(stack.maxSize());
@@ -203,6 +180,11 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    /**
+     * Does the heavy lifting. Should not be called manually. Processes all events.
+     *
+     * @param e The event.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
@@ -236,10 +218,4 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
             }
         }
     }
-
-
-    public static void main(String[] args) {
-        IntegerStackEmulator emulator = new IntegerStackEmulator();
-    }
-
 }
