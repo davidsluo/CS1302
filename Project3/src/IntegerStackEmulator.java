@@ -63,6 +63,8 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
         this.setLayout(new GridBagLayout());
         stack = new Stack<>();
 
+        Font textFont = new Font("Arial", Font.PLAIN, 32);
+
         // The Table ===================================================================================================
         stackTable = new JTable();
         tableModel = new DefaultTableModel();
@@ -94,7 +96,7 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
         ioField = new JTextField();
         ioField.setEnabled(false);
         ioField.setDisabledTextColor(Color.black);
-        ioField.setFont(new Font("Arial", Font.PLAIN, 32));
+        ioField.setFont(textFont);
         {
             GridBagConstraints constraints = new GridBagConstraints();
             constraints.gridx = 1;
@@ -127,8 +129,9 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
                 popButton
         };
         for (JButton b : buttons) {
-            buttonPanel.add(b);
+            b.setFont(textFont);
             b.addActionListener(this);
+            buttonPanel.add(b);
         }
 
         {
@@ -146,6 +149,7 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
 
         // Clear Button ================================================================================================
         clear = new JButton("Clear");
+        clear.setFont(textFont);
         clear.addActionListener(this);
         {
             GridBagConstraints constraints = new GridBagConstraints();
@@ -162,7 +166,8 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
 
         // Size Field ==================================================================================================
         sizeField = new JTextField(8);
-        sizeField.setText(String.valueOf(stack.size()));
+//        sizeField.setFont(textFont);
+        sizeField.setText(String.valueOf(stack.maxSize()));
         {
             GridBagConstraints constraints = new GridBagConstraints();
             constraints.gridx = 1;
