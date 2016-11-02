@@ -1,3 +1,6 @@
+import Exceptions.EmptyStackException;
+import Exceptions.FullStackException;
+
 /**
  * Defines the interface to a stack collection.
  *
@@ -24,7 +27,7 @@ public interface StackADT<T> {
      *
      * @return the element on top of the stack
      */
-    T peek();
+    T peek() throws EmptyStackException;
 
     /**
      * Returns true if this stack contains no elements.

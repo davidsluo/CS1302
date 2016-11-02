@@ -1,3 +1,6 @@
+import Exceptions.EmptyStackException;
+import Exceptions.FullStackException;
+
 /**
  * {@inheritDoc}
  */
@@ -6,7 +9,7 @@ public class Stack<T> implements StackADT<T> {
 
     private T[] stack;
     private int top = -1;
-    public final int DEFAULT_CAPACITY = 10;
+    public final int DEFAULT_CAPACITY = 100;
 
     public Stack(int capacity) {
         stack = (T[]) new Object[capacity];
@@ -25,7 +28,7 @@ public class Stack<T> implements StackADT<T> {
             stack[top + 1] = element;
             top++;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new FullStackException();
+            throw new FullStackException("Stack full");
         }
     }
 
@@ -37,11 +40,12 @@ public class Stack<T> implements StackADT<T> {
         T popped;
         try {
             popped = stack[top];
+            stack[top] = null;
             top--;
             return popped;
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new EmptyStackException();
+            throw new EmptyStackException("Stack empty");
         }
     }
 
@@ -49,11 +53,11 @@ public class Stack<T> implements StackADT<T> {
      * {@inheritDoc}
      */
     @Override
-    public T peek() {
+    public T peek() throws EmptyStackException {
         try {
             return stack[top];
         } catch (ArrayIndexOutOfBoundsException e) {
-            return null;
+            throw new EmptyStackException("Stack empty");
         }
     }
 
@@ -85,5 +89,9 @@ public class Stack<T> implements StackADT<T> {
             }
         }
         return count;
+    }
+
+    public int maxSize() {
+        return stack.length;
     }
 }
