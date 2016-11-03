@@ -17,21 +17,21 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
 
     private Stack<Integer> stack;
 
-    private JTable stackTable;
+    private JTable            stackTable;
     private DefaultTableModel tableModel;
 
     private JScrollPane rightPanel;
 
     private JTextField ioField;
 
-    private JPanel buttonPanel;
+    private JPanel    buttonPanel;
     private JButton[] buttons;
-    private JButton pushButton;
-    private JButton popButton;
-    private JButton clear;
+    private JButton   pushButton;
+    private JButton   popButton;
+    private JButton   clear;
 
     private JTextField sizeField;
-    private JButton setMaxSize;
+    private JButton    setMaxSize;
 
     /**
      * Constructor
@@ -46,7 +46,7 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
         stackTable = new JTable();
         tableModel = new DefaultTableModel();
 
-        String header = String.format("MyStack.Stack    Max Size:%d", stack.maxSize());
+        String header = String.format("Stack    Max Size:%d", stack.maxSize());
 
         tableModel.setColumnIdentifiers(new String[]{header});
         tableModel.setRowCount(stack.maxSize());
@@ -214,7 +214,17 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
             } else if (e.getSource() == clear) {
                 ioField.setText("");
             } else if (e.getSource() == setMaxSize) {
+                try {
+                    int input = Integer.parseInt(sizeField.getText());
+                    stack = new Stack<>(input);
+                    tableModel.setColumnIdentifiers(new String[]{String.format("Stack    Max Size:%d", stack.maxSize())});
+                    tableModel.setRowCount(stack.maxSize());
+                    for (int i = 0; i < stack.maxSize(); i++) {
+                        tableModel.setValueAt("", i, 0);
+                    }
+                } catch (NumberFormatException e1) {
 
+                }
             }
         }
     }
