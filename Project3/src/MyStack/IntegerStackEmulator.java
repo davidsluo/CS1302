@@ -201,7 +201,7 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
                     tableModel.setValueAt("", stack.size(), 0);
                     ioField.setText(String.valueOf(popped));
                 } catch (EmptyStackException e1) {
-                    ioField.setText("");
+                    ioField.setText("Error");
                 }
             } else if (e.getSource() == pushButton) {
                 try {
@@ -210,6 +210,7 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
                     stack.push(input);
 //                    ioField.setText("");
                 } catch (NumberFormatException | FullStackException | ArrayIndexOutOfBoundsException ignored) {
+                    ioField.setText("Error");
                 }
             } else if (e.getSource() == clear) {
                 ioField.setText("");
@@ -223,7 +224,7 @@ public class IntegerStackEmulator extends JFrame implements ActionListener {
                         tableModel.setValueAt("", i, 0);
                     }
                 } catch (NumberFormatException e1) {
-
+                    sizeField.setText("Error");
                 }
             }
         }
