@@ -7,16 +7,21 @@ An emulation of Stacks, using Java Swing/AWT to visualize a Stack. Custom Stack 
 Make sure you have ssh X server forwarding enabled.
 
 Run command: 
-    `bash$ ant`
+
+    bash$ ant
 ##Just Compile:
 Run command:
-    `bash$ ant build`
+
+    bash$ ant build
 ##Clean up:
 Run command:
-    `bash$ ant clean`
+
+    bash$ ant clean
 ##Compile Javadoc
 Run command:
-    `bash$ ant javadoc`
+
+    bash$ ant javadoc
 ##Test
 Run command:
-    `bash$ ant test`
+
+    bash$ ant test
