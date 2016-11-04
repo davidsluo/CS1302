@@ -11,6 +11,8 @@
 
     <property name="main-class" value="Test.MyStackTester"/>
 
+    <property name="doc.dir" value="docs"/>
+
     <path id="classpath">
         <fileset dir="${lib.dir}" includes="**/*.jar"/>
     </path>
@@ -40,6 +42,11 @@
                 <path location="${jar.dir}/${ant.project.name}.jar"/>
             </classpath>
         </java>
+    </target>
+
+    <target name="javadoc">
+        <mkdir dir="${doc.dir}"/>
+        <javadoc sourcepath="${src.dir}" destdir="${doc.dir}"/>
     </target>
 
     <target name="clean-build" depends="clean, jar"/>
