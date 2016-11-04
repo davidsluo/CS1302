@@ -34,13 +34,13 @@ public class MyStackTester {
     @Test
     public void testDefaultConstructor() {
         Stack<String> stack = new Stack<>();
-        assertEquals(stack.maxSize(), Stack.DEFAULT_CAPACITY);
+        assertEquals(Stack.DEFAULT_CAPACITY, stack.maxSize());
     }
 
     @Test
     public void testConstructor() {
         Stack<String> stack = new Stack<>(3);
-        assertEquals(stack.maxSize(), 3);
+        assertEquals(3, stack.maxSize());
     }
 
     @Test
@@ -64,34 +64,34 @@ public class MyStackTester {
         for (int i = 0; i < 10; i++) {
             stack.push(String.valueOf(i));
 
-            assertEquals(stack.size(), i + 1);
+            assertEquals(i + 1, stack.size());
         }
     }
 
     @Test
     public void testMaxSize() {
-        assertEquals(stack.maxSize(), Stack.DEFAULT_CAPACITY);
+        assertEquals(Stack.DEFAULT_CAPACITY, stack.maxSize());
     }
 
     @Test
     public void testPeek() {
         stack.push("asdf");
-        assertEquals(stack.peek(), "asdf");
-        assertEquals(stack.size(), 1);
+        assertEquals("asdf", stack.peek());
+        assertEquals(1, stack.size());
     }
 
     @Test
     public void testPush() {
         stack.push("a");
-        assertEquals(stack.peek(), "a");
+        assertEquals("a", stack.peek());
         stack.push("b");
-        assertEquals(stack.peek(), "b");
+        assertEquals("b", stack.peek());
         stack.push("c");
-        assertEquals(stack.peek(), "c");
+        assertEquals("c", stack.peek());
         stack.push("d");
-        assertEquals(stack.peek(), "d");
+        assertEquals("d", stack.peek());
         stack.push("e");
-        assertEquals(stack.peek(), "e");
+        assertEquals("e", stack.peek());
     }
 
     @Test
@@ -101,17 +101,17 @@ public class MyStackTester {
         stack.push("c");
         stack.push("d");
         stack.push("e");
-        assertEquals(stack.size(), 5);
-        assertEquals(stack.pop(), "e");
-        assertEquals(stack.size(), 4);
-        assertEquals(stack.pop(), "d");
-        assertEquals(stack.size(), 3);
-        assertEquals(stack.pop(), "c");
-        assertEquals(stack.size(), 2);
-        assertEquals(stack.pop(), "b");
-        assertEquals(stack.size(), 1);
-        assertEquals(stack.pop(), "a");
-        assertEquals(stack.size(), 0);
+        assertEquals(5, stack.size());
+        assertEquals("e", stack.pop());
+        assertEquals(4, stack.size());
+        assertEquals("d", stack.pop());
+        assertEquals(3, stack.size());
+        assertEquals("c", stack.pop());
+        assertEquals(2, stack.size());
+        assertEquals("b", stack.pop());
+        assertEquals(1, stack.size());
+        assertEquals("a", stack.pop());
+        assertEquals(0, stack.size());
     }
 
     @Test(expected = FullStackException.class)
@@ -130,6 +130,6 @@ public class MyStackTester {
         stack.push("a");
         stack.push("b");
         stack.push("c");
-        assertEquals(stack.toString(), "a\nb\nc\n");
+        assertEquals("a\nb\nc\n", stack.toString());
     }
 }
