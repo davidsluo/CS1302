@@ -1,5 +1,7 @@
 package Test;
 
+import MyStack.Exceptions.EmptyStackException;
+import MyStack.Exceptions.FullStackException;
 import MyStack.IntegerStackEmulator;
 import MyStack.Stack;
 import org.junit.Before;
@@ -110,6 +112,16 @@ public class MyStackTester {
         assertEquals(stack.size(), 1);
         assertEquals(stack.pop(), "a");
         assertEquals(stack.size(), 0);
+    }
 
+    @Test(expected = FullStackException.class)
+    public void testFullStackException() {
+        stack = new Stack<>(0);
+        stack.push("a");
+    }
+
+    @Test(expected = EmptyStackException.class)
+    public void testEmptyStackException() {
+        stack.pop();
     }
 }
