@@ -115,14 +115,17 @@ public class Stack<T> implements StackADT<T> {
 
     /**
      * Creates a string representation of the stack.
+     *
      * @return a string representation of the stack
      */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for (T obj : stack) {
-            builder.append(obj.toString());
-            builder.append("\n");
+            if (obj != null) {
+                builder.append(obj.toString());
+                builder.append("\n");
+            }
         }
         return builder.toString();
     }
