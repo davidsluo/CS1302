@@ -1,5 +1,8 @@
 #Project 3
-######*David Luo*
+Author: David Luo
+Description:
+    An emulation of Stacks, using Java Swing/AWT to visualize a Stack.
+    Custom Stack class using Array and Generics to model Stack data structure.
 ##To Compile and Run:
 Run command: 
     `bash$ ant`
