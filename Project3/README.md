@@ -5,6 +5,7 @@ Description:
 An emulation of Stacks, using Java Swing/AWT to visualize a Stack. Custom Stack class using Array and Generics to model Stack data structure.
 ##To Compile and Run:
 Make sure you have ssh X server forwarding enabled.
+
 Run command: 
     `bash$ ant`
 ##Just Compile:
