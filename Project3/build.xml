@@ -44,6 +44,16 @@
         </java>
     </target>
 
+    <target name="test" depends="jar">
+        <java fork="true" classname="${main-class}">
+            <classpath>
+                <path refid="classpath"/>
+                <path location="${jar.dir}/${ant.project.name}.jar"/>
+            </classpath>
+            <arg value="test"/>
+        </java>
+    </target>
+
     <target name="javadoc">
         <mkdir dir="${doc.dir}"/>
         <javadoc sourcepath="${src.dir}" destdir="${doc.dir}"/>

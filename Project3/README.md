@@ -13,7 +13,9 @@ Run command:
 ##Clean up:
 Run command:
     `bash$ ant clean`
-
 ##Compile Javadoc
 Run command:
     `bash$ ant javadoc`
+##Test
+Run command:
+    `bash$ ant test`

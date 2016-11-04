@@ -124,4 +124,12 @@ public class MyStackTester {
     public void testEmptyStackException() {
         stack.pop();
     }
+
+    @Test
+    public void testToString() {
+        stack.push("a");
+        stack.push("b");
+        stack.push("c");
+        assertEquals(stack.toString(), "a\nb\nc\n");
+    }
 }

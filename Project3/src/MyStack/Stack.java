@@ -112,4 +112,18 @@ public class Stack<T> implements StackADT<T> {
     public int maxSize() {
         return stack.length;
     }
+
+    /**
+     * Creates a string representation of the stack.
+     * @return a string representation of the stack
+     */
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (T obj : stack) {
+            builder.append(obj.toString());
+            builder.append("\n");
+        }
+        return builder.toString();
+    }
 }
