@@ -7,19 +7,19 @@ import java.util.Iterator;
  * Created by David on 11/21/2016.
  */
 public class SortedDoublyLinkedList<T extends Comparable<T>> implements Serializable, Iterable<T> {
-    private int     size       = 0;
-    private Node<T> head, tail = null;
+    private int     size = 0;
+    private Node<T> head = null;
 
 
     public boolean add(T obj) {
-        Node<T> cursor = tail;
+        Node<T> cursor = head;
         Node<T> node   = new Node<T>(obj);
 
         if (obj == null)
             return false;
 
         // Loop through list until it finds a node with an element that is greater than <obj>
-        while (cursor != null) {
+        while (cursor != null && cursor.next() != null) {
             int comparison = cursor.getData().compareTo(obj);
             if (comparison == 0)
                 return false;
@@ -31,7 +31,7 @@ public class SortedDoublyLinkedList<T extends Comparable<T>> implements Serializ
                     node.setPrev(cursor.prev());
                     cursor.prev().setNext(node);
                 } else {
-                    tail = node;
+                    head = node;
                 }
 
                 cursor.setPrev(node);
@@ -46,21 +46,19 @@ public class SortedDoublyLinkedList<T extends Comparable<T>> implements Serializ
             cursor = cursor.next();
         }
 
-        if (head != null) {
-            head.setNext(node);
-            node.setPrev(head);
+        if (cursor != null) {
+            cursor.setNext(node);
+            node.setPrev(cursor);
+        } else {
+            head = node;
         }
-        if (tail == null) {
-            tail = node;
-        }
-        head = node;
         size++;
         return true;
 
     }
 
     public boolean remove(T obj) {
-        Node<T> cursor = tail;
+        Node<T> cursor = head;
         if (cursor == null)
             return false;
         while (cursor != null) {
@@ -68,12 +66,10 @@ public class SortedDoublyLinkedList<T extends Comparable<T>> implements Serializ
                 if (cursor.hasPrev()) {
                     cursor.prev().setNext(cursor.next());
                 } else {
-                    tail = cursor.next();
+                    head = cursor.next();
                 }
                 if (cursor.hasNext()) {
                     cursor.next().setPrev(cursor.prev());
-                } else {
-                    head = cursor.prev();
                 }
                 size--;
                 return true;
@@ -93,7 +89,7 @@ public class SortedDoublyLinkedList<T extends Comparable<T>> implements Serializ
      * @return
      */
     public T get(int index) {
-        Node<T> cursor = tail;
+        Node<T> cursor = head;
         if (index < 0 || index >= size())
             throw new IndexOutOfBoundsException();
         else {
@@ -143,9 +139,8 @@ public class SortedDoublyLinkedList<T extends Comparable<T>> implements Serializ
         for (T element : this) {
             if (element.equals(obj)) {
                 return ++index;
-            }
-            else
-                index ++;
+            } else
+                index++;
         }
         return -1;
     }
