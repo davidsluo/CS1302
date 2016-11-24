@@ -14,7 +14,7 @@
     <property name="doc.dir" value="docs"/>
 
     <!--Define where name class is-->
-    <property name="main-class" value="Test.MyStackTester"/>
+    <property name="main-class" value="ListTest.MyStackTester"/>
 
     <!--Include jars in lib directory in path "variable" called "classpath"-->
     <path id="classpath">

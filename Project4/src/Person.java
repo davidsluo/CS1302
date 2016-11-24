@@ -1,5 +1,4 @@
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -10,7 +9,21 @@ public class Person implements Comparable<Person>{
     private String   firstName;
     private String   lastName;
     private int      id;
-    private Calendar birthDate;
+    private Date birthDate;
+
+    public Person(String firstName, String lastName, int id, Date birthDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+
+        try {
+            assert id < 10000;
+            assert id > -1;
+            this.id = id;
+        } catch (AssertionError e) {
+            throw new IllegalArgumentException("ID must be 4 digits.");
+        }
+    }
 
     public String getFirstName() {
         return firstName;
@@ -36,11 +49,11 @@ public class Person implements Comparable<Person>{
         this.id = id;
     }
 
-    public Calendar getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Calendar birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -60,5 +73,14 @@ public class Person implements Comparable<Person>{
     @Override
     public int compareTo(Person other) {
         return Integer.compare(this.getId(), other.getId());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        try {
+            return 0 == compareTo((Person) other);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

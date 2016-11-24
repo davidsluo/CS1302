@@ -20,7 +20,7 @@ public class Node<T> {
         this.data = data;
     }
 
-    public Node<T> getPrev() {
+    public Node<T> prev() {
         return prev;
     }
 
@@ -28,11 +28,19 @@ public class Node<T> {
         this.prev = prev;
     }
 
-    public Node<T> getNext() {
+    public Node<T> next() {
         return next;
     }
 
     public void setNext(Node<T> next) {
         this.next = next;
+    }
+
+    public boolean hasNext() {
+        return this.next != null;
+    }
+
+    public boolean hasPrev() {
+        return this.prev != null;
     }
 }
