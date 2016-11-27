@@ -149,21 +149,24 @@ public class SortedDoublyLinkedList<T extends Comparable<T>> implements Serializ
     public Iterator<T> iterator() {
         return new Iterator<T>() {
 
-            private Node<T> currentNode = null;
+            private Node<T> cursor = null;
 
             @Override
             public boolean hasNext() {
-                return currentNode.next() != null;
+                if (cursor == null)
+                    return head != null && head.next() != null;
+                else
+                    return cursor.next() != null;
             }
 
             @Override
             public T next() {
-                if (currentNode == null) {
-                    currentNode = head;
-                    return currentNode.getData();
+                if (cursor == null) {
+                    cursor = head;
+                    return cursor.getData();
                 } else {
-                    currentNode = currentNode.next();
-                    return currentNode.getData();
+                    cursor = cursor.next();
+                    return cursor.getData();
                 }
             }
         };
