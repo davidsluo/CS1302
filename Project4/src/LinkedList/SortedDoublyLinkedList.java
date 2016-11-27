@@ -6,7 +6,7 @@ import java.util.Iterator;
 /**
  * Created by David on 11/21/2016.
  */
-public class SortedDoublyLinkedList<T extends Comparable<T>> implements Serializable, Iterable<T> {
+public class SortedDoublyLinkedList<T extends Comparable> implements Serializable, Iterable<T> {
     private int size = 0;
     private Node<T> head = null;
 

@@ -1,4 +1,3 @@
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -60,7 +59,7 @@ public class Person implements Comparable<Person>{
     @Override
     public String toString() {
         return String.format(
-                "%1$04d %2$s %3$s %4$tm-%4$td-%4$tY",
+                "%1$04d\t%2$-10s\t%3$-10s\t%4$tm-%4$td-%4$tY",
                 getId(), getFirstName(), getLastName(), getBirthDate());
     }
 
@@ -83,4 +82,5 @@ public class Person implements Comparable<Person>{
             return false;
         }
     }
+
 }
