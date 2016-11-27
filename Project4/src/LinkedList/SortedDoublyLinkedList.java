@@ -7,13 +7,13 @@ import java.util.Iterator;
  * Created by David on 11/21/2016.
  */
 public class SortedDoublyLinkedList<T extends Comparable<T>> implements Serializable, Iterable<T> {
-    private int     size = 0;
+    private int size = 0;
     private Node<T> head = null;
 
 
     public boolean add(T obj) {
         Node<T> cursor = head;
-        Node<T> node   = new Node<T>(obj);
+        Node<T> node = new Node<T>(obj);
 
         if (obj == null)
             return false;
@@ -108,7 +108,7 @@ public class SortedDoublyLinkedList<T extends Comparable<T>> implements Serializ
         return size;
     }
 
-    private void printList() {
+    public void printList() {
         for (T obj : this) {
             System.out.println(obj.toString());
         }
@@ -149,7 +149,7 @@ public class SortedDoublyLinkedList<T extends Comparable<T>> implements Serializ
     public Iterator<T> iterator() {
         return new Iterator<T>() {
 
-            private Node<T> currentNode = head;
+            private Node<T> currentNode = null;
 
             @Override
             public boolean hasNext() {
@@ -158,8 +158,13 @@ public class SortedDoublyLinkedList<T extends Comparable<T>> implements Serializ
 
             @Override
             public T next() {
-                currentNode = currentNode.next();
-                return currentNode.getData();
+                if (currentNode == null) {
+                    currentNode = head;
+                    return currentNode.getData();
+                } else {
+                    currentNode = currentNode.next();
+                    return currentNode.getData();
+                }
             }
         };
     }
