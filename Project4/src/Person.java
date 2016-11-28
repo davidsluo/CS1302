@@ -1,15 +1,25 @@
 import java.util.Date;
 
 /**
- * Created by David on 11/21/2016.
+ * A simple object representation of a Person
+ *
+ * @author David Luo
  */
-public class Person implements Comparable<Person>{
+public class Person implements Comparable<Person> {
 
-    private String   firstName;
-    private String   lastName;
-    private int      id;
+    private String firstName;
+    private String lastName;
+    private int id;
     private Date birthDate;
 
+    /**
+     * Constructor
+     *
+     * @param firstName The person's first name
+     * @param lastName  The person's last name
+     * @param id        The person's unique ID
+     * @param birthDate The person's Date of Birth
+     */
     public Person(String firstName, String lastName, int id, Date birthDate) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,38 +34,65 @@ public class Person implements Comparable<Person>{
         }
     }
 
+    /**
+     * @return The person's first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * @param firstName The person's first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * @return The person's last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * @param lastName The person's last name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * @return The person's unique ID
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * @param id The person's unique ID
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * @return The person's Date of Birth
+     */
     public Date getBirthDate() {
         return birthDate;
     }
 
+    /**
+     * @param birthDate The person's Date of Birth
+     */
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
+    /**
+     * @return A string representation of the person
+     */
     @Override
     public String toString() {
         return String.format(
@@ -66,8 +103,8 @@ public class Person implements Comparable<Person>{
     /**
      * @param other
      * @return 0 if equal
-     *         1 if this ID > other ID
-     *         -1 if this ID < other ID
+     * 1 if this ID > other ID
+     * -1 if this ID < other ID
      */
     @Override
     public int compareTo(Person other) {

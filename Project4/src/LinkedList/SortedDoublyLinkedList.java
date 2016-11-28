@@ -6,7 +6,8 @@ import java.util.Iterator;
 /**
  * An implementation of a Sorted Doubly Linked List
  *
- * @param <T>
+ * @param <T> The type of data this List stores
+ * @author David Luo
  */
 public class SortedDoublyLinkedList<T extends Comparable> implements Serializable, Iterable<T> {
     private int size = 0;

@@ -1,12 +1,13 @@
 import LinkedList.SortedDoublyLinkedList;
-import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by David on 11/21/2016.
+ * A demo of SortedDoublyLinkedList using Person and Student objects
+ *
+ * @author David Luo
  */
 public class Demo {
 
@@ -79,7 +80,7 @@ public class Demo {
     }
 
     // This is probably ugly.
-    public static Date convertToDate(int month, int day, int year) {
+    private static Date convertToDate(int month, int day, int year) {
         String date = String.format("%02d-%02d-%04d", month, day, year);
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
