@@ -4,13 +4,20 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 /**
- * Created by David on 11/21/2016.
+ * An implementation of a Sorted Doubly Linked List
+ *
+ * @param <T>
  */
 public class SortedDoublyLinkedList<T extends Comparable> implements Serializable, Iterable<T> {
     private int size = 0;
     private Node<T> head = null;
 
-
+    /**
+     * Sorts and adds a Comparable object to this list
+     *
+     * @param obj the object to add
+     * @return if adding the object was successful
+     */
     public boolean add(T obj) {
         Node<T> cursor = head;
         Node<T> node = new Node<T>(obj);
@@ -60,6 +67,12 @@ public class SortedDoublyLinkedList<T extends Comparable> implements Serializabl
 
     }
 
+    /**
+     * Remove an object from the list
+     *
+     * @param obj The object to remove
+     * @return If removing the object was successful
+     */
     public boolean remove(T obj) {
         Node<T> cursor = head;
         if (cursor == null)
@@ -86,10 +99,10 @@ public class SortedDoublyLinkedList<T extends Comparable> implements Serializabl
     }
 
     /**
-     * O(n)
+     * Get the object at the specified index in the list
      *
-     * @param index
-     * @return
+     * @param index The index of the object to get
+     * @return The object
      */
     public T get(int index) {
         Node<T> cursor = head;
@@ -103,14 +116,23 @@ public class SortedDoublyLinkedList<T extends Comparable> implements Serializabl
         }
     }
 
+    /**
+     * @return If this list is empty
+     */
     public boolean isEmpty() {
         return head == null;
     }
 
+    /**
+     * @return How many elements are in the list
+     */
     public int size() {
         return size;
     }
 
+    /**
+     * Print the toString for each element in the list
+     */
     public void printList() {
         for (T obj : this) {
             System.out.println(obj.toString());
@@ -143,6 +165,12 @@ public class SortedDoublyLinkedList<T extends Comparable> implements Serializabl
         return true;
     }
 
+    /**
+     * Get the index of the specified object
+     *
+     * @param obj The object to search for
+     * @return The index the object is in the list or -1 if not in the list
+     */
     public int indexOf(T obj) {
         int index = -1;
         for (T element : this) {
@@ -154,6 +182,9 @@ public class SortedDoublyLinkedList<T extends Comparable> implements Serializabl
         return -1;
     }
 
+    /**
+     * @return An iterator for this list
+     */
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
