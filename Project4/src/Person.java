@@ -101,9 +101,10 @@ public class Person implements Comparable<Person> {
     }
 
     /**
-     * @param other
-     * @return 0 if equal
-     * 1 if this ID > other ID
+     * Compares this Person to another Person by ID
+     * @param other The other person
+     * @return 0 if equal;
+     * 1 if this ID > other ID;
      * -1 if this ID < other ID
      */
     @Override
@@ -111,6 +112,10 @@ public class Person implements Comparable<Person> {
         return Integer.compare(this.getId(), other.getId());
     }
 
+    /**
+     * @param other The object to compare
+     * @return If the object's ID's match. False if other is not comparable.
+     */
     @Override
     public boolean equals(Object other) {
         try {
