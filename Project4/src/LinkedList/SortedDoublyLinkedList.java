@@ -19,7 +19,7 @@ public class SortedDoublyLinkedList<T extends Comparable> implements Serializabl
             return false;
 
         // Loop through list until it finds a node with an element that is greater than <obj>
-        while (cursor != null && cursor.next() != null) {
+        while (cursor != null) {
             int comparison = cursor.getData().compareTo(obj);
             if (comparison == 0)
                 return false;
@@ -43,7 +43,10 @@ public class SortedDoublyLinkedList<T extends Comparable> implements Serializabl
 //                // do nothing?
 //            }
 
-            cursor = cursor.next();
+            if (cursor.hasNext()) {
+                cursor = cursor.next();
+            } else
+                break;
         }
 
         if (cursor != null) {
@@ -114,16 +117,22 @@ public class SortedDoublyLinkedList<T extends Comparable> implements Serializabl
         }
     }
 
-    public SortedDoublyLinkedList<T> merge(SortedDoublyLinkedList<? extends T> otherList) {
-        SortedDoublyLinkedList<T> merged = this;
-        for (T obj : otherList) {
-            merged.add(obj);
+    public SortedDoublyLinkedList merge(SortedDoublyLinkedList<?> otherList) {
+        SortedDoublyLinkedList merged = this;
+        for (Object obj : otherList) {
+            merged.add((Comparable) obj);
         }
 
         return merged;
     }
 
-    public boolean isPrefix(SortedDoublyLinkedList<? extends T> otherList) {
+    /**
+     * Is this list a prefix of otherList?
+     *
+     * @param otherList the list that this list might be a prefix of
+     * @return if this list is a prefix of otherList
+     */
+    public boolean isPrefix(SortedDoublyLinkedList otherList) {
         if (this.size() > otherList.size())
             return false;
         for (int i = 0; i < this.size(); i++) {

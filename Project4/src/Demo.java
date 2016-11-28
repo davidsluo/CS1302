@@ -11,25 +11,47 @@ public class Demo {
 
 
     public static void main(String[] args) {
-        SortedDoublyLinkedList<Person> peopleList = new SortedDoublyLinkedList<>();
-        SortedDoublyLinkedList<Student> studentList = new SortedDoublyLinkedList<>();
+        {
+            // studentList is a prefix of personList when sorted by ID
+            SortedDoublyLinkedList<Person> peopleList = new SortedDoublyLinkedList<>();
+            SortedDoublyLinkedList<Student> studentList = new SortedDoublyLinkedList<>();
 
-        Student benson = new Student("Benson", "Chau", 1289, convertToDate(3, 13, 1978), "UGA");
-        Person grandpa = new Person("Kyle", "Grandpa", 3340, convertToDate(1, 1, 1997));
-        Person rick = new Person("Rick", "Astley", 3841, convertToDate(2, 6, 1966));
-        Student frank = new Student("Frank", "Smith", 283, convertToDate(1, 1, 2842), "Harvard");
-        Student hawking = new Student("Stephen", "Hawking", 3822, convertToDate(3, 2, 2981), "MIT");
+            Student benson = new Student("Benson", "Chau", 1, convertToDate(3, 13, 1978), "UGA");
+            Student frank = new Student("Frank", "Smith", 2, convertToDate(1, 1, 2842), "Harvard");
+            Student hawking = new Student("Stephen", "Hawking", 3, convertToDate(3, 2, 2981), "MIT");
 
-        Person[] people = {
-                grandpa, rick, benson, frank, hawking
-        };
+            Person grandpa = new Person("Kyle", "Grandpa", 238, convertToDate(1, 1, 1997));
+            Person rick = new Person("Rick", "Astley", 3841, convertToDate(2, 6, 1966));
 
-        for (Person p : people) {
-            boolean success = peopleList.add(p);
+            // Regular unsorted arrays for convenience.
+            Person[] people = {
+                    grandpa, rick, benson, frank, hawking
+            };
+            Student[] students = {
+                    benson, hawking, frank
+            };
+
+            System.out.println("Unordered People");
+            for (Person p : people) {
+                System.out.println(p.toString());
+                if (!peopleList.add(p))
+                    System.out.println("Failed to add " + p.toString());
+            }
+            System.out.println("Unordered Students");
+            for (Student s : students) {
+                System.out.println(s.toString());
+                if (!studentList.add(s))
+                    System.out.println("Failed to add " + s.toString());
+            }
+
+            System.out.println("People");
+            peopleList.printList();
+            System.out.println("Students");
+            studentList.printList();
+
+            System.out.println("Students prefix of People?");
+            System.out.println(studentList.isPrefix(peopleList));
         }
-
-        peopleList.printList();
-
     }
 
     // This is probably ugly.
