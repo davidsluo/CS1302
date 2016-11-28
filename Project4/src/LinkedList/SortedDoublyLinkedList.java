@@ -117,7 +117,7 @@ public class SortedDoublyLinkedList<T extends Comparable> implements Serializabl
         }
     }
 
-    public SortedDoublyLinkedList merge(SortedDoublyLinkedList<?> otherList) {
+    public SortedDoublyLinkedList<T> merge(SortedDoublyLinkedList<? extends T> otherList) {
         SortedDoublyLinkedList merged = this;
         for (Object obj : otherList) {
             merged.add((Comparable) obj);
@@ -127,9 +127,9 @@ public class SortedDoublyLinkedList<T extends Comparable> implements Serializabl
     }
 
     /**
-     * Is this list a prefix of otherList?
+     * Is `this` list a prefix of `otherList`?
      *
-     * @param otherList the list that this list might be a prefix of
+     * @param otherList the list that `this` list might be a prefix of
      * @return if this list is a prefix of otherList
      */
     public boolean isPrefix(SortedDoublyLinkedList otherList) {
