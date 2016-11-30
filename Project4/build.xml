@@ -18,6 +18,7 @@
     <target name="clean">
         <!--Delete "build" directory-->
         <delete dir="${build.dir}"/>
+        <delete file="serialized"/>
     </target>
 
     <!--Define compile command-->
