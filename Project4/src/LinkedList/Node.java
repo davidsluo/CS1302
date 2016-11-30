@@ -1,12 +1,14 @@
 package LinkedList;
 
+import java.io.Serializable;
+
 /**
  * A node in a Doubly Linked List
  *
  * @param <T> The type of data this Node stores
  * @author David Luo
  */
-public class Node<T> {
+public class Node<T> implements Serializable {
     private T data;
     private Node<T> prev = null;
     private Node<T> next = null;

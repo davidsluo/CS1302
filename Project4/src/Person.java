@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -5,7 +6,7 @@ import java.util.Date;
  *
  * @author David Luo
  */
-public class Person implements Comparable<Person> {
+public class Person implements Comparable<Person>, Serializable {
 
     private String firstName;
     private String lastName;

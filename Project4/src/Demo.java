@@ -43,12 +43,14 @@ public class Demo {
             SortedList<Student> studentList = new SortedList<>();
 
             // Add data to lists
+            System.out.println("Sorting");
+            System.out.println("-------");
             System.out.println("Unordered People");
             for (Person p : peopleArr)
                 System.out.println(p.toString());
 
             System.out.println("Unordered Students");
-            for (Student s : studentList)
+            for (Student s : studentsArr)
                 System.out.println(s.toString());
 
             fromArrayToList(peopleArr, peopleList);
@@ -65,7 +67,10 @@ public class Demo {
             System.out.println();
 
             // Testing rejection of duplicates and null objects
-            System.out.println("Attempting to add duplicate entry: " + benson.toString());
+            System.out.println("Rejection of duplicate and null objects");
+            System.out.println("---------------------------------------");
+            System.out.println("Attempting to add duplicate entry: ");
+            System.out.println(benson.toString());
             System.out.println("Succeeded?");
             System.out.println(peopleList.add(benson));
 
@@ -76,6 +81,8 @@ public class Demo {
             System.out.println();
 
             // Test prefix
+            System.out.println("isPrefix");
+            System.out.println("--------");
             System.out.println("Students prefix of People?");
             System.out.println(studentList.isPrefix(peopleList));
         }
@@ -90,6 +97,8 @@ public class Demo {
             fromArrayToList(onlyPeopleArr, onlyPeople);
 
             // Test merge
+            System.out.println("Merging");
+            System.out.println("-------");
             System.out.println("Just People");
             onlyPeople.printList();
             System.out.println("Just Students");
@@ -110,7 +119,14 @@ public class Demo {
 
             Person bob = new Person("Bob", "Joe", 1254, convertToDate(1, 1, 3829));
 
+            System.out.println("This is bob: ");
+            System.out.println(bob.toString());
+
+            System.out.println();
+
             //Testing adding
+            System.out.println("Adding object to list");
+            System.out.println("---------------------");
             System.out.println("A list:");
             allPeople.printList();
             System.out.println("Adding Bob");
@@ -121,12 +137,16 @@ public class Demo {
             System.out.println();
 
             //Testing indexOf
+            System.out.println("Getting index of object");
+            System.out.println("-----------------------");
             System.out.println("Getting index of Bob");
             System.out.println(allPeople.indexOf(bob));
 
             System.out.println();
 
             //Testing removing
+            System.out.println("Removing element from list");
+            System.out.println("--------------------------");
             System.out.println("Removing Bob");
             allPeople.remove(bob);
             System.out.println("The List again:");
@@ -135,13 +155,16 @@ public class Demo {
             System.out.println();
 
             //Testing Size
+            System.out.println("Getting Size");
+            System.out.println("------------");
             System.out.println("Size of list: ");
             System.out.println(allPeople.size());
 
             System.out.println();
 
             //Testing get
-            System.out.println("Getting by index...");
+            System.out.println("Getting by index");
+            System.out.println("----------------");
             for (int i = 0; i < allPeople.size(); i++) {
                 System.out.println("Index: " + i);
                 System.out.println(allPeople.get(i).toString());
@@ -150,6 +173,8 @@ public class Demo {
             System.out.println();
 
             //Testing isEmpty
+            System.out.println("isEmpty");
+            System.out.println("-------");
             System.out.println("Is list empty?");
             System.out.println(allPeople.isEmpty());
             System.out.println("Removing everything in list.");
@@ -168,12 +193,34 @@ public class Demo {
 
         System.out.println();
 
+        {
+            SortedList<Person> original = new SortedList<>();
+            fromArrayToList(peopleArr, original);
+
+            System.out.println("Serialization");
+            System.out.println("-------------");
+            System.out.println("Original list:");
+            original.printList();
+            System.out.println("Serializing to file named \"serialized\"");
+            SortedList.serialze(original);
+            System.out.println("Creating new list from deserialized file.");
+
+            SortedList<Person> deserialized = SortedList.deserialize();
+
+            System.out.println("The deserialized list:");
+            deserialized.printList();
+
+        }
+
+        System.out.println();
+
         System.out.println("Demo finished.");
     }
 
 
-    //Helper method
+    // This is probably ugly.
     public static void fromArrayToList(Object[] arr, SortedList list) {
+
         for (Object obj : arr) {
             try {
                 if (!list.add((Comparable) obj)) {
@@ -185,7 +232,7 @@ public class Demo {
         }
     }
 
-    // This is probably ugly.
+    // This is probably uglier.
     private static Date convertToDate(int month, int day, int year) {
         String date = String.format("%02d-%02d-%04d", month, day, year);
 
