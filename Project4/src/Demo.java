@@ -45,12 +45,25 @@ public class Demo {
 
             // Add data to lists
             System.out.println("Unordered People");
-            fromArrayToList(peopleArr, peopleList);
-            peopleList.printList();
+            for (Person p : peopleArr)
+                System.out.println(p.toString());
 
             System.out.println("Unordered Students");
+            for (Student s : studentList)
+                System.out.println(s.toString());
+
+            fromArrayToList(peopleArr, peopleList);
             fromArrayToList(studentsArr, studentList);
+
+            System.out.println();
+
+            // Test printList()
+            System.out.println("Ordered People");
+            peopleList.printList();
+            System.out.println("Ordered Students");
             studentList.printList();
+
+            System.out.println();
 
             // Testing rejection of duplicates and null objects
             System.out.println("Attempting to add duplicate entry: " + benson.toString());
@@ -61,16 +74,15 @@ public class Demo {
             System.out.println("Succeeded?");
             System.out.println(peopleList.add(null));
 
-            // Test printList()
-            System.out.println("People");
-            peopleList.printList();
-            System.out.println("Students");
-            studentList.printList();
+            System.out.println();
 
             // Test prefix
             System.out.println("Students prefix of People?");
             System.out.println(studentList.isPrefix(peopleList));
         }
+
+        System.out.println();
+
         {
             SortedDoublyLinkedList<Student> onlyStudents = new SortedDoublyLinkedList<>();
             SortedDoublyLinkedList<Person> onlyPeople = new SortedDoublyLinkedList<>();
@@ -89,6 +101,9 @@ public class Demo {
             System.out.println("Merged");
             merged.printList();
         }
+
+        System.out.println();
+
         {
             SortedDoublyLinkedList<Person> allPeople = new SortedDoublyLinkedList<>();
 
@@ -104,9 +119,13 @@ public class Demo {
             System.out.println("The List again:");
             allPeople.printList();
 
+            System.out.println();
+
             //Testing indexOf
             System.out.println("Getting index of Bob");
             System.out.println(allPeople.indexOf(bob));
+
+            System.out.println();
 
             //Testing removing
             System.out.println("Removing Bob");
@@ -114,9 +133,13 @@ public class Demo {
             System.out.println("The List again:");
             allPeople.printList();
 
+            System.out.println();
+
             //Testing Size
             System.out.println("Size of list: ");
             System.out.println(allPeople.size());
+
+            System.out.println();
 
             //Testing get
             System.out.println("Getting by index...");
@@ -124,6 +147,8 @@ public class Demo {
                 System.out.println("Index: " + i);
                 System.out.println(allPeople.get(i).toString());
             }
+
+            System.out.println();
 
             //Testing isEmpty
             System.out.println("Is list empty?");
@@ -138,6 +163,8 @@ public class Demo {
             System.out.println("Is list empty?");
             System.out.println(allPeople.isEmpty());
         }
+
+        System.out.println();
 
         System.out.println("Demo finished.");
     }
