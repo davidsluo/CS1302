@@ -46,9 +46,11 @@ public class Demo {
             // Add data to lists
             System.out.println("Unordered People");
             fromArrayToList(peopleArr, peopleList);
+            peopleList.printList();
 
             System.out.println("Unordered Students");
             fromArrayToList(studentsArr, studentList);
+            studentList.printList();
 
             // Testing rejection of duplicates and null objects
             System.out.println("Attempting to add duplicate entry: " + benson.toString());
