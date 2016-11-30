@@ -1,6 +1,6 @@
 package LinkedList;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.Iterator;
 
 /**
@@ -9,7 +9,7 @@ import java.util.Iterator;
  * @param <T> The type of data this List stores
  * @author David Luo
  */
-public class SortedDoublyLinkedList<T extends Comparable> implements Serializable, Iterable<T> {
+public class SortedList<T extends Comparable> implements Serializable, Iterable<T> {
     private int size = 0;
     private Node<T> head = null;
 
@@ -21,7 +21,7 @@ public class SortedDoublyLinkedList<T extends Comparable> implements Serializabl
      */
     public boolean add(T obj) {
         Node<T> cursor = head;
-        Node<T> node = new Node<T>(obj);
+        Node<T> node = new Node<>(obj);
 
         if (obj == null)
             return false;
@@ -140,8 +140,8 @@ public class SortedDoublyLinkedList<T extends Comparable> implements Serializabl
         }
     }
 
-    public SortedDoublyLinkedList<T> merge(SortedDoublyLinkedList<? extends T> otherList) {
-        SortedDoublyLinkedList merged = this;
+    public SortedList<T> merge(SortedList<? extends T> otherList) {
+        SortedList merged = this;
         for (Object obj : otherList) {
             merged.add((Comparable) obj);
         }
@@ -155,7 +155,7 @@ public class SortedDoublyLinkedList<T extends Comparable> implements Serializabl
      * @param otherList the list that `this` list might be a prefix of
      * @return if this list is a prefix of otherList
      */
-    public boolean isPrefix(SortedDoublyLinkedList otherList) {
+    public boolean isPrefix(SortedList otherList) {
         if (this.size() > otherList.size())
             return false;
         for (int i = 0; i < this.size(); i++) {
@@ -211,5 +211,40 @@ public class SortedDoublyLinkedList<T extends Comparable> implements Serializabl
                 }
             }
         };
+    }
+
+    /**
+     * Serializes the given SortedList to a file named "serialized"
+     *
+     * @param list The SortedList to serialize.
+     */
+    public static void serialze(SortedList list) {
+        try (FileOutputStream fileOut = new FileOutputStream("serialized");
+             ObjectOutputStream objOut = new ObjectOutputStream(fileOut)) {
+
+            objOut.writeObject(list);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Deserializes the file named "serialized" into a SortedList
+     *
+     * @return The deserialized SortedList
+     */
+    public static SortedList deserialize() {
+        SortedList list = null;
+
+        try (FileInputStream fileIn = new FileInputStream("serialized");
+             ObjectInputStream objIn = new ObjectInputStream(fileIn)) {
+
+            list = (SortedList) objIn.readObject();
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }

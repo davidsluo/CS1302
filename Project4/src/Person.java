@@ -25,13 +25,10 @@ public class Person implements Comparable<Person> {
         this.lastName = lastName;
         this.birthDate = birthDate;
 
-        try {
-            assert id < 10000;
-            assert id > -1;
-            this.id = id;
-        } catch (AssertionError e) {
+        if (id > 9999 || id < 0)
             throw new IllegalArgumentException("ID must be 4 digits.");
-        }
+
+        this.id = id;
     }
 
     /**

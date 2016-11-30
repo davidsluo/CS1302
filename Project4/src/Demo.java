@@ -1,12 +1,11 @@
-import LinkedList.SortedDoublyLinkedList;
-import com.sun.org.apache.xpath.internal.SourceTree;
+import LinkedList.SortedList;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * A demo of SortedDoublyLinkedList using Person and Student objects
+ * A demo of SortedList using Person and Student objects
  *
  * @author David Luo
  */
@@ -40,8 +39,8 @@ public class Demo {
         // Arbitrary scope
         {
             // studentList is a prefix of personList when sorted by ID
-            SortedDoublyLinkedList<Person> peopleList = new SortedDoublyLinkedList<>();
-            SortedDoublyLinkedList<Student> studentList = new SortedDoublyLinkedList<>();
+            SortedList<Person> peopleList = new SortedList<>();
+            SortedList<Student> studentList = new SortedList<>();
 
             // Add data to lists
             System.out.println("Unordered People");
@@ -84,8 +83,8 @@ public class Demo {
         System.out.println();
 
         {
-            SortedDoublyLinkedList<Student> onlyStudents = new SortedDoublyLinkedList<>();
-            SortedDoublyLinkedList<Person> onlyPeople = new SortedDoublyLinkedList<>();
+            SortedList<Student> onlyStudents = new SortedList<>();
+            SortedList<Person> onlyPeople = new SortedList<>();
 
             fromArrayToList(onlyStudentsArr, onlyStudents);
             fromArrayToList(onlyPeopleArr, onlyPeople);
@@ -96,7 +95,7 @@ public class Demo {
             System.out.println("Just Students");
             onlyStudents.printList();
 
-            SortedDoublyLinkedList<Person> merged = onlyPeople.merge(onlyStudents);
+            SortedList<Person> merged = onlyPeople.merge(onlyStudents);
 
             System.out.println("Merged");
             merged.printList();
@@ -105,7 +104,7 @@ public class Demo {
         System.out.println();
 
         {
-            SortedDoublyLinkedList<Person> allPeople = new SortedDoublyLinkedList<>();
+            SortedList<Person> allPeople = new SortedList<>();
 
             fromArrayToList(peopleArr, allPeople);
 
@@ -174,7 +173,7 @@ public class Demo {
 
 
     //Helper method
-    public static void fromArrayToList(Object[] arr, SortedDoublyLinkedList list) {
+    public static void fromArrayToList(Object[] arr, SortedList list) {
         for (Object obj : arr) {
             try {
                 if (!list.add((Comparable) obj)) {
