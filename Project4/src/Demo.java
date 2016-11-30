@@ -159,6 +159,9 @@ public class Demo {
                 allPeople.remove(p);
             }
             System.out.println("The list:");
+
+            System.out.println();
+
             allPeople.printList();
             System.out.println("Is list empty?");
             System.out.println(allPeople.isEmpty());
